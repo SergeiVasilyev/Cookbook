@@ -5,9 +5,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add resepti</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <title>Lisää resepti</title>
 </head>
 <body>
-    ADD RESEPTI
+    <div class="container">
+        <div class="row">
+        <form method="post" class="mb-4" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>{{ form.headline }}</div>
+            <div>{{ form.body_text }}</div>
+            <div>{{ form.image }}</div>
+            <div>{{ form.ingridientFK }}</div>
+            <div>{{ form_ingridiet.ing_name }}</div>
+            <div>{{ form.categoryFK }}</div>
+            <div>{{ form_category.cat_name }}</div>
+            <button type="submit" class="btn btn-success mb-4 px-4">Submit</button>
+        </form>
+        </div>
+    </div>
+
 </body>
 </html>
