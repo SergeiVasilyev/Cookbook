@@ -1,13 +1,13 @@
 from django import forms
 from django.db import models
-from .models import Resepti, Category, Ingridient
+from .models import Recipe, Category, Ingredient
 from django.forms import ModelForm, widgets, TextInput, CheckboxInput
 
 
-class ReseptiForm(ModelForm):
+class RecipeForm(ModelForm):
     class Meta:
-        model = Resepti
-        fields = ['headline', 'body_text', 'image', 'categoryFK', 'ingridientFK']
+        model = Recipe
+        fields = ['headline', 'body_text', 'image', 'categoryFK', 'ingredients']
         widgets = {
             'headline': TextInput(attrs={
                 'class': 'form-control',
@@ -24,9 +24,9 @@ class ReseptiForm(ModelForm):
             'categoryFK': widgets.Select(attrs={
                 'class': 'form-select',
             }),
-            'ingridientFK': widgets.Select(attrs={
-                'class': 'form-select',
-            }),
+            'ingredients': widgets.CheckboxSelectMultiple(attrs={
+                'class': '',
+            })
         }
 
     # def __init__(self, *args, **kwargs):
@@ -35,19 +35,18 @@ class ReseptiForm(ModelForm):
     #     self.fields['ingridientFK'].required = False
 
 
-class IngridientForm(ModelForm):
+class IngredientForm(ModelForm):
     class Meta:
-        model = Ingridient
+        model = Ingredient
         fields = ['ing_name']
         widgets = {
-            'ing_name': TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'lisää raaka-aine'
+            'ing_name': widgets.CheckboxSelectMultiple(attrs={
+                'class': 'form-check-input',
             }),
         }
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['ing_name'].required = False
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['ing_name'].required = False
 
 
 class CategoryForm(ModelForm):
@@ -63,3 +62,13 @@ class CategoryForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['cat_name'].required = False
+
+# class Recipe_IngredientForm(ModelForm):
+#     class Meta:
+#         model = Recipe_Ingredient
+#         fields = ['recipeFK', 'ingredFK']
+#         widgets = {
+#             'recipeFK': widgets.CheckboxInput(attrs={
+#                 'class': 'form-check-input',
+#             }),
+#         }

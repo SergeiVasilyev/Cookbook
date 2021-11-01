@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'resepti_app/main.css' %}">
+    <title>{% block title %}Cook Book{% endblock %}</title>
+    {% block script %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-xl-center">
+
+            <div class="col-xl-auto">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light style='background-color: #e3f2fd;'">
+                    <div class="container-fluid ps-5">
+                        <a class="navbar-brand" href="#">
+                            <img src="{% static 'resepti_app/logo/rsz_1logo_transparent.png' %}" alt="logo">
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarText">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'home' %}">Home<span class="sr-only"></span></a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link" href="{% url 'add_resepti' %}">Lisää resepti</a>
+                                </li>
+                            </ul>
+                            <span class="navbar-text">
+                            </span>
+                        </div>
+                    </div>
+                </nav>
+                {% block content %}
+                {% endblock %}
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
