@@ -7,25 +7,39 @@
 {% block script %}
 <script>
     $(document).ready(function() {
-        $('.check_warp').find("ul").addClass('list-group ')
-        $('.check_warp').find("li").addClass('list-group-item')
+        $('#id_ingredients').autocolumnlist({columns: 4}); //https://neolot.com/narabotki/autocolumnlist-jquery-plugin-dlya-razdeleniya-spiskov-na-kolonki
+        $('.check_warp').find("ul").addClass('list-group')
+        $('.check_warp').find("li").addClass('list-group-item ')
         $('.check_warp').find("input").addClass('form-check-input me-1')
+        
     })
 </script>
 {% endblock %}
 {% block content %}
-<div class="container">
+<div class="content_warp"> 
     <div class="row">
     <form method="post" class="mb-4" autocomplete="off" enctype="multipart/form-data">
         {% csrf_token %}
-        <div>{{ form.headline }}</div>
-        <div>{{ form.body_text|safe }}</div>
-        <div>{{ form.image }}</div>
+        <div class="h1 pb-4 pt-4">Reseptin Lisääminen</div>
+        <div class="pb-3 ">
+            {{ form.headline }}
+        </div>
+        <div class="pb-3 border-bottom mb-4">{{ form.body_text|safe }}</div>
+        <div class="pb-3 border-bottom mb-4">
+            <p class="form-headline d-flex justify-content-end">Lisää kuva</p>
+            {{ form.image }}
+        </div>
         
-        <div class="check_warp">{{ form.ingredients }}</div>
+        <div class="check_warp pb-3 border-bottom mb-4">
+            <p class="form-headline d-flex justify-content-end">Valitse rakaa-aineet</p>
+            {{ form.ingredients }}
+        </div>
         
-        <div>{{ form.categoryFK }}</div>
-        <div>{{ form_category.cat_name }}</div>
+        <div class="pb-3">
+            <p class="form-headline d-flex justify-content-end">Valitse tai kirjoita ruokalaji</p>
+            {{ form.categoryFK }}
+        </div>
+        <div class="pb-3">{{ form_category.cat_name }}</div>
         <button type="submit" class="btn btn-success mb-4 px-4">Submit</button>
     </form>
     </div>

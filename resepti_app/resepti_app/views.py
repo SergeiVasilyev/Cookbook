@@ -5,11 +5,15 @@ from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from .forms import RecipeForm, CategoryForm, IngredientForm
 from django.core.files.storage import FileSystemStorage
+from .models import Recipe
 
 
 def index (request):
-    print('ajskjasbd')
-    return render(request, 'resepti_app/index.html')
+    recipe = Recipe.objects.all()
+    context = {
+        'recipe': recipe,
+    }  
+    return render(request, 'resepti_app/index.html', context)
 
 def add_resepti(request):
     if request.method == 'POST':
@@ -30,11 +34,12 @@ def add_resepti(request):
                 print('category ', category)
             else:
                 form.save()
-            return HttpResponse('successfully uploaded')
+            return redirect('add_resepti')
     else:
         form = RecipeForm()
         form_ingrediet = IngredientForm()
         form_category = CategoryForm()
+        
         context = {
             'form': form,
             'form_ingridiet': form_ingrediet,
@@ -47,6 +52,12 @@ def add_resepti(request):
 def success(request):
     return HttpResponse('successfully uploaded2')
 
+def resepti(request, idx):
+    recipe = Recipe.objects.get(id=idx)
+    context = {
+        'recipe': recipe,
+    }
+    return render(request, 'resepti_app/resepti.html', context) 
 
 
 
