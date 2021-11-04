@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from .forms import RecipeForm, CategoryForm, IngredientForm
 from django.core.files.storage import FileSystemStorage
-from .models import Recipe
+from .models import Recipe, Ingredient
 
 
 def index (request):
@@ -58,6 +58,23 @@ def resepti(request, idx):
         'recipe': recipe,
     }
     return render(request, 'resepti_app/resepti.html', context) 
+
+def search(request):  
+    if request.method == 'GET':
+        print('search_form: ', request.GET.get('search_form'))
+        request_form = request.GET.get('search_form')
+        item = Ingredient.objects.get(ing_name=request_form)
+        print(item.id)
+
+        # print(Ingredient.objects.filter(recipes='3'))
+        print(Recipe.objects.filter(ingredients=item.id))
+        recipe = Recipe.objects.filter(ingredients=item.id)
+
+    context = {
+        'recipe': recipe,
+    }
+    return render(request, 'resepti_app/index.html', context)
+
 
 
 

@@ -11,7 +11,10 @@
         $('.check_warp').find("ul").addClass('list-group')
         $('.check_warp').find("li").addClass('list-group-item ')
         $('.check_warp').find("input").addClass('form-check-input me-1')
-        
+        // $('.check_warp p').click(function(){
+        //     console.log($('.check_warp p').attr('class'))
+        //     $('.check_warp div').toggle("slow")
+        // })
     })
 </script>
 {% endblock %}
@@ -31,8 +34,8 @@
         </div>
         
         <div class="check_warp pb-3 border-bottom mb-4">
-            <p class="form-headline d-flex justify-content-end">Valitse rakaa-aineet</p>
-            {{ form.ingredients }}
+            <p class="form-headline d-flex justify-content-end">Valitse päärakaa-aineet</p>
+            <div style="display: block;">{{ form.ingredients }}</div>
         </div>
         
         <div class="pb-3">

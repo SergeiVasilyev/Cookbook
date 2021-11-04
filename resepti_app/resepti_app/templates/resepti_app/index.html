@@ -6,29 +6,26 @@
 
 
 {% block content %}
+{% include 'resepti_app/search.html' %}
 <div class="content_warp_recipe">
-    <div class="row">
-        <!-- <ul class="list-group tasks_list">
+    
+    <div class="card_warp row">
+        {% if recipe %}
         {% for el in recipe %}
-            <li id="{{el.id}}" class="list-group-item d-flex justify-content-between align-items-center" >
-                <a href="{% url 'resepti' el.id %}">
-                    {{el.headline}}
-                </a>
-            </li>
+                <div class="card mx-2 my-2">
+                    <img src="{{el.image.url}}" class="card-img-top pt-2" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{el.headline}}</h5>
+                        <p class="card-text">{{el.body_text|slice:"5:80"}}...</p>
+                        <a href="{% url 'resepti' el.id %}" class="btn btn-primary">Lue lisää</a>
+                    </div>
+                </div>
         {% endfor %}
-        </ul> -->
-        {% for el in recipe %}
-        <div class="card mx-2 my-2" style="width: 18rem;">
-            <img src="{{el.image.url}}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{el.headline}}</h5>
-                <p class="card-text">{{el.body_text|slice:"5:80"}}...</p>
-                <a href="{% url 'resepti' el.id %}" class="btn btn-primary">Lue lisää</a>
-            </div>
+        {% else %}
+        <div style="text-align: center;">
+            <p>Hakusi ei tuottanut tuloksia</p>
         </div>
-        {% endfor %}
-
-
+        {% endif %}
     </div>
 </div>
 {% endblock %}

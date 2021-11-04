@@ -26,5 +26,6 @@ urlpatterns = [
     path('resepti_app/', views.add_resepti, name='add_resepti'),
     path('success', views.success, name = 'success'),
     path('resepti/<int:idx>/', views.resepti, name = 'resepti'),
+    path('search', views.search, name = 'search'),
     #path("upload", views.upload, name="upload")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
