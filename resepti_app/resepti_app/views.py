@@ -9,9 +9,9 @@ from .models import Recipe, Ingredient
 
 
 def index (request):
-    recipe = Recipe.objects.all()
+    recipes = Recipe.objects.all()
     context = {
-        'recipe': recipe,
+        'recipes': recipes,
     }  
     return render(request, 'resepti_app/index.html', context)
 
@@ -31,6 +31,7 @@ def add_resepti(request):
                 Resepti_item = form.save(commit=False)
                 Resepti_item.categoryFK = category
                 Resepti_item.save()
+                form.save()
                 print('category ', category)
             else:
                 form.save()
@@ -63,19 +64,34 @@ def search(request):
     if request.method == 'GET':
         print('search_form: ', request.GET.get('search_form'))
         request_form = request.GET.get('search_form')
-        item = Ingredient.objects.get(ing_name=request_form)
-        print(item.id)
-
-        # print(Ingredient.objects.filter(recipes='3'))
-        print(Recipe.objects.filter(ingredients=item.id))
-        recipe = Recipe.objects.filter(ingredients=item.id)
-
+        items = Ingredient.objects.filter(ing_name__icontains=request_form)
+        if not items.exists():
+            recipes = None
+        else:
+            print(items)
+            # print(Ingredient.objects.filter(recipes='3'))
+            recipes = Recipe.objects.filter(ingredients__in=items).distinct()
+            print(recipes)
     context = {
-        'recipe': recipe,
+        'recipes': recipes,
     }
     return render(request, 'resepti_app/index.html', context)
 
 
+def edit_resepti(request, id):
+    data_item = Recipe.objects.get(id=id)
+
+    form = RecipeForm(instance=data_item)
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES, instance=data_item)
+        if form.is_valid():
+            form.save()
+            return redirect('/resepti/' + str(id))
+    context = {
+        'form': form,
+    }
+    return render(request, 'resepti_app/edit_resepti.html', context)
+    # return HttpResponse('successfully uploaded: ' + str(id))
 
 
 

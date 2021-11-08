@@ -2,10 +2,13 @@ from django import forms
 from django.db import models
 from .models import Recipe, Category, Ingredient
 from django.forms import ModelForm, widgets, TextInput, CheckboxInput
+from ckeditor.widgets import CKEditorWidget
+from ckeditor.fields import RichTextFormField
 
 
 class RecipeForm(ModelForm):
     class Meta:
+        # body_text = forms.CharField(widget=CKEditorWidget())
         model = Recipe
         fields = ['headline', 'body_text', 'image', 'categoryFK', 'ingredients']
         widgets = {
@@ -13,10 +16,11 @@ class RecipeForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'lisää otsikko'
             }),
-            'body_text': widgets.Textarea(attrs={
-                'class': 'form-control',
-                'placeholder': 'lisää resepti'
-            }),
+            'body_text': RichTextFormField(),
+            # 'body_text': widgets.Textarea(attrs={
+            #     'class': 'form-control',
+            #     'placeholder': 'lisää resepti'
+            # }),
             'image': widgets.FileInput(attrs={
                 'class': 'form-control-file',
                 'title': 'lisää kuva'

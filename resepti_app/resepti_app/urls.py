@@ -27,5 +27,7 @@ urlpatterns = [
     path('success', views.success, name = 'success'),
     path('resepti/<int:idx>/', views.resepti, name = 'resepti'),
     path('search', views.search, name = 'search'),
-    #path("upload", views.upload, name="upload")
+    #path("upload", views.upload, name="upload"),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('edit_resepti/<int:id>/', views.edit_resepti, name = 'edit_resepti'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

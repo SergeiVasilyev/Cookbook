@@ -7,8 +7,8 @@
 {% block script %}
 <script>
     $(document).ready(function() {
-        $('#id_ingredients').autocolumnlist({columns: 4}); //https://neolot.com/narabotki/autocolumnlist-jquery-plugin-dlya-razdeleniya-spiskov-na-kolonki
-        $('.check_warp').find("ul").addClass('list-group')
+        $('#id_ingredients').autocolumnlist({columns: 4, min: 2}); //https://neolot.com/narabotki/autocolumnlist-jquery-plugin-dlya-razdeleniya-spiskov-na-kolonki
+        $('.check_warp').find("ul").addClass('list-group d-flex justify-content-between')
         $('.check_warp').find("li").addClass('list-group-item ')
         $('.check_warp').find("input").addClass('form-check-input me-1')
         // $('.check_warp p').click(function(){
@@ -27,7 +27,8 @@
         <div class="pb-3 ">
             {{ form.headline }}
         </div>
-        <div class="pb-3 border-bottom mb-4">{{ form.body_text|safe }}</div>
+        <!-- <div class="pb-3 border-bottom mb-4">{{ form.body_text|safe }}</div> -->
+        <div class="pb-3 border-bottom mb-4">{{ form.body_text }}</div>
         <div class="pb-3 border-bottom mb-4">
             <p class="form-headline d-flex justify-content-end">Lisää kuva</p>
             {{ form.image }}

@@ -1,0 +1,111 @@
+body {
+    background-color: #eee;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300
+}
+
+.warp {
+    /* display: grid; */
+    /* max-width: 700px; */
+    
+}
+.form-headline{
+    font-size: 1.2em;
+    /* border: 1px red solid; */
+}
+
+.content_warp{
+    max-width: 700px;
+}
+
+
+
+.navbar-brand img{
+    width: 100%;
+    height: 50px;
+    /* border: 1px red solid; */
+}
+
+#id_ingredients{
+    display: flex;
+    flex-direction: row;
+}
+
+.column{
+    justify-content: space-between;
+    max-width: 700px;
+}
+
+.list-group-item{
+    max-width: 180px;
+}
+
+.img_crop{
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    object-position: 0% 20%;
+}
+
+
+.content_warp_recipe{
+    max-width: 1190px;
+}
+    .card img{
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        object-position: 0% 20%;
+    }
+
+    .card_warp{
+        /* display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: unsafe center; */
+        /* border: 1px green solid; */
+        /* display: inline-block; */
+        /* max-width: auto; */
+        display: grid;
+        /* grid-template-columns: 1fr 1fr 1fr; */
+        grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+        grid-template-rows: auto;
+        column-gap: 10px;
+        justify-items: center;
+        /* justify-content:space-between; */
+    }
+
+    .card{
+        display: grid;
+        max-width: 18em;
+    }
+
+
+.list-group-item {
+    background-color: inherit;
+    border: 0px solid rgba(0,0,0,.125);
+}
+
+
+
+
+
+
+
+
+/* .form-control {
+    width: 100%;
+} */
+
+
+
+
+/* @media screen and (min-width: 961px){
+    .card:nth-child(4n){
+        border: 1px red solid;
+    }
+    .card {
+        border: 1px green solid;
+    }
+    } */
+      

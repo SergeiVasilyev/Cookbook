@@ -1,0 +1,51 @@
+{% extends "resepti_app/base.html" %}
+
+{% load static %}
+
+{% block title %}Muokkaa reseptiä{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function() {
+        $('#id_ingredients').autocolumnlist({columns: 4, min: 2}); //https://neolot.com/narabotki/autocolumnlist-jquery-plugin-dlya-razdeleniya-spiskov-na-kolonki
+        $('.check_warp').find("ul").addClass('list-group d-flex justify-content-between')
+        $('.check_warp').find("li").addClass('list-group-item ')
+        $('.check_warp').find("input").addClass('form-check-input me-1')
+        // $('.check_warp p').click(function(){
+        //     console.log($('.check_warp p').attr('class'))
+        //     $('.check_warp div').toggle("slow")
+        // })
+    })
+</script>
+{% endblock %}
+{% block content %}
+<div class="content_warp"> 
+    <div class="row">
+    <form method="post" class="mb-4" autocomplete="off" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="h1 pb-4 pt-4">Reseptin muokkaaminen</div>
+        <div class="pb-3 ">
+            {{ form.headline }}
+        </div>
+        <!-- <div class="pb-3 border-bottom mb-4">{{ form.body_text|safe }}</div> -->
+        <div class="pb-3 border-bottom mb-4">{{ form.body_text }}</div>
+        <div class="pb-3 border-bottom mb-4">
+            <p class="form-headline d-flex justify-content-end">Lisää kuva</p>
+            {{ form.image }}
+        </div>
+        
+        <div class="check_warp pb-3 border-bottom mb-4">
+            <p class="form-headline d-flex justify-content-end">Valitse päärakaa-aineet</p>
+            <div style="display: block;">{{ form.ingredients }}</div>
+        </div>
+        
+        <div class="pb-3">
+            <p class="form-headline d-flex justify-content-end">Valitse tai kirjoita ruokalaji</p>
+            {{ form.categoryFK }}
+        </div>
+        <div class="pb-3">{{ form_category.cat_name }}</div>
+        <button type="submit" class="btn btn-success mb-4 px-4">Submit</button>
+    </form>
+    </div>
+</div>
+{% endblock %}
