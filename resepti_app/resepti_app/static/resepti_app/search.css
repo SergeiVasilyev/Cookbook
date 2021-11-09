@@ -1,11 +1,20 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap"); */
 
+.container{
+    
+}
+
 .col{
     max-width: 1000px;
 }
 
 .height {
-    height: 25vh
+    height: 20vw;
+    /* height: calc(20vw); */
+    background-repeat: repeat-y;
+    background-image: url('pics/food.jpg');
+    background-position: center;
+    background-size: cover;
 }
 
 .search {

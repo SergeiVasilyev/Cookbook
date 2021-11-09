@@ -31,21 +31,19 @@
                         <div class="collapse navbar-collapse" id="navbarText">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                <a class="nav-link" href="{% url 'home' %}">Etusivu<span class="sr-only"></span></a>
+                                    <a class="nav-link" href="{% url 'home' %}">Etusivu<span class="sr-only"></span></a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="{% url 'add_resepti' %}">Lisää resepti</a>
+                                    <a class="nav-link" href="{% url 'add_resepti' %}">Lisää resepti</a>
                                 </li>
                             </ul>
-                            <span class="navbar-text">
-                            </span>
+                            <span class="navbar-text"></span>
                         </div>
                     </div>
                 </nav>
                 {% block content %}
                 {% endblock %}
             </div>
-
         </div>
     </div>
 </body>

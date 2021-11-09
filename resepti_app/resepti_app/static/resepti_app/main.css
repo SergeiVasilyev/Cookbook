@@ -3,6 +3,11 @@ body {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     min-width: 320px;
+    background-image: url('pics/patterni-konfeti.png');
+}
+
+body>div{
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .warp {
@@ -48,7 +53,7 @@ body {
     object-position: 0% 20%;
 }
 
-
+/* CARD */
 .content_warp_recipe{
     max-width: 1190px;
 }
@@ -80,7 +85,7 @@ body {
         display: grid;
         max-width: 18em;
     }
-
+/* --CARD-- */
 
 .list-group-item {
     background-color: inherit;

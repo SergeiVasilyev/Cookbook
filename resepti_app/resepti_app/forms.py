@@ -8,7 +8,6 @@ from ckeditor.fields import RichTextFormField
 
 class RecipeForm(ModelForm):
     class Meta:
-        # body_text = forms.CharField(widget=CKEditorWidget())
         model = Recipe
         fields = ['headline', 'body_text', 'image', 'categoryFK', 'ingredients']
         widgets = {
@@ -33,10 +32,6 @@ class RecipeForm(ModelForm):
             })
         }
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['categoryFK'].required = False
-    #     self.fields['ingridientFK'].required = False
 
 
 class IngredientForm(ModelForm):
@@ -67,12 +62,4 @@ class CategoryForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['cat_name'].required = False
 
-# class Recipe_IngredientForm(ModelForm):
-#     class Meta:
-#         model = Recipe_Ingredient
-#         fields = ['recipeFK', 'ingredFK']
-#         widgets = {
-#             'recipeFK': widgets.CheckboxInput(attrs={
-#                 'class': 'form-check-input',
-#             }),
-#         }
+

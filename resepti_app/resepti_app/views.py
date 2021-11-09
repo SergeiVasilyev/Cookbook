@@ -6,6 +6,7 @@ from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from .forms import RecipeForm, CategoryForm, IngredientForm
 from django.core.files.storage import FileSystemStorage
 from .models import Recipe, Ingredient
+from django.db.models import Q
 
 
 def index (request):
@@ -65,13 +66,14 @@ def search(request):
         print('search_form: ', request.GET.get('search_form'))
         request_form = request.GET.get('search_form')
         items = Ingredient.objects.filter(ing_name__icontains=request_form)
-        if not items.exists():
+        body_text_items = Recipe.objects.filter(body_text__icontains=request_form)
+        headline_items = Recipe.objects.filter(headline__icontains=request_form)
+        if not items.exists() and not body_text_items.exists() and not headline_items.exists():
             recipes = None
+            print('recipes ', None)
         else:
-            print(items)
-            # print(Ingredient.objects.filter(recipes='3'))
-            recipes = Recipe.objects.filter(ingredients__in=items).distinct()
-            print(recipes)
+            recipes = Recipe.objects.filter(Q(ingredients__in=items) | Q(body_text__icontains=request_form) | Q(headline__icontains=request_form)).distinct()
+            print('recipes ', recipes)
     context = {
         'recipes': recipes,
     }
