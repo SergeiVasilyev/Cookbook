@@ -23,7 +23,7 @@
     <div class="row">
     <form method="post" class="mb-4" autocomplete="off" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="h1 pb-4 pt-4">Reseptin muokkaaminen</div>
+        <div class="h1 pb-4 pt-4">Reseptin Muokkaaminen</div>
         <div class="pb-3 ">
             {{ form.headline }}
         </div>
@@ -44,7 +44,9 @@
             {{ form.categoryFK }}
         </div>
         <div class="pb-3">{{ form_category.cat_name }}</div>
-        <button type="submit" class="btn btn-success mb-4 px-4">Submit</button>
+        <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-success mb-4 px-4">Muokkaa reseptiä</button>
+        </div>
     </form>
     </div>
 </div>

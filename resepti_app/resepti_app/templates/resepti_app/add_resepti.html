@@ -25,6 +25,7 @@
         {% csrf_token %}
         <div class="h1 pb-4 pt-4">Reseptin Lisääminen</div>
         <div class="pb-3 ">
+            <p>Anna reseptille mieleisesi otsikko. Esim. "Suussasulavat suklaakeksit"</p>
             {{ form.headline }}
         </div>
         <!-- <div class="pb-3 border-bottom mb-4">{{ form.body_text|safe }}</div> -->
@@ -44,7 +45,9 @@
             {{ form.categoryFK }}
         </div>
         <div class="pb-3">{{ form_category.cat_name }}</div>
-        <button type="submit" class="btn btn-success mb-4 px-4">Submit</button>
+        <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-success mb-4 px-4">Lisää resepti</button>
+        </div>
     </form>
     </div>
 </div>
