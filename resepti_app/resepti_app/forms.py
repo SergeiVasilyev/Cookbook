@@ -13,7 +13,7 @@ class RecipeForm(ModelForm):
         widgets = {
             'headline': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'lisää otsikko'
+                'placeholder': 'Lisää otsikko'
             }),
             'body_text': RichTextFormField(),
             # 'body_text': widgets.Textarea(attrs={
@@ -22,7 +22,7 @@ class RecipeForm(ModelForm):
             # }),
             'image': widgets.FileInput(attrs={
                 'class': 'form-control-file',
-                'title': 'lisää kuva'
+                'title': 'Lisää kuva'
             }),
             'categoryFK': widgets.Select(attrs={
                 'class': 'form-select',
@@ -55,7 +55,7 @@ class CategoryForm(ModelForm):
         widgets = {
             'cat_name': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'lisää ruokalaji'
+                'placeholder': 'Lisää ruokalaji'
             }),
         }
     def __init__(self, *args, **kwargs):
