@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from .forms import RecipeForm, CategoryForm, IngredientForm
 from django.core.files.storage import FileSystemStorage
-from .models import Recipe, Ingredient
+from .models import Recipe, Ingredient, Category
 from django.db.models import Q
 
 
@@ -66,13 +66,14 @@ def search(request):
         print('search_form: ', request.GET.get('search_form'))
         request_form = request.GET.get('search_form')
         items = Ingredient.objects.filter(ing_name__icontains=request_form)
+        category_items = Category.objects.filter(cat_name__icontains=request_form)
         body_text_items = Recipe.objects.filter(body_text__icontains=request_form)
         headline_items = Recipe.objects.filter(headline__icontains=request_form)
-        if not items.exists() and not body_text_items.exists() and not headline_items.exists():
+        if not items.exists() and not body_text_items.exists() and not headline_items.exists() and not category_items.exists():
             recipes = None
             print('recipes ', None)
         else:
-            recipes = Recipe.objects.filter(Q(ingredients__in=items) | Q(body_text__icontains=request_form) | Q(headline__icontains=request_form)).distinct()
+            recipes = Recipe.objects.filter(Q(ingredients__in=items) | Q(body_text__icontains=request_form) | Q(headline__icontains=request_form) | Q(categoryFK__in=category_items)).distinct()
             print('recipes ', recipes)
     context = {
         'recipes': recipes,

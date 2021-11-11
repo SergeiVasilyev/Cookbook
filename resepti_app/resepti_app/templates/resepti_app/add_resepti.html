@@ -7,14 +7,43 @@
 {% block script %}
 <script>
     $(document).ready(function() {
-        $('#id_ingredients').autocolumnlist({columns: 4, min: 2}); //https://neolot.com/narabotki/autocolumnlist-jquery-plugin-dlya-razdeleniya-spiskov-na-kolonki
+        //https://github.com/Neolot/jQuery.AutoColumnList
+        //https://neolot.com/narabotki/autocolumnlist-jquery-plugin-dlya-razdeleniya-spiskov-na-kolonki
+        // $('#id_ingredients').autocolumnlist({columns: 0});
+
         $('.check_warp').find("ul").addClass('list-group d-flex justify-content-between')
-        $('.check_warp').find("li").addClass('list-group-item ')
+        $('.check_warp').find("li").addClass('list-group-item')
         $('.check_warp').find("input").addClass('form-check-input me-1')
         // $('.check_warp p').click(function(){
         //     console.log($('.check_warp p').attr('class'))
         //     $('.check_warp div').toggle("slow")
         // })
+        $('#id_ingredients').autocolumnlist({columns: 0})
+        $('#id_ingredients').autocolumnlist({columns: 3})
+        $('#id_ingredients').autocolumnlist({columns: 0})
+        // setTimeout(() => $('#id_ingredients').autocolumnlist({columns: 0}), 2000);
+        // setTimeout(() => $('#id_ingredients').autocolumnlist({columns: 2}), 2000);
+        
+
+        // function windowSize2(){
+        //     new Promise((resolve, reject) => {
+        //         $('#id_ingredients').autocolumnlist({columns: 0})
+        //         }).then(colm())
+
+        //     function colm() {
+        //         if ($(window).width() <= 823){
+        //             col = 3
+        //         } else {
+        //             col = 4
+        //         }
+        //         console.log($(window).width())
+        //         $('#id_ingredients').autocolumnlist({columns: col})
+        //     }
+        // }
+        
+        
+        // $(window).on('load resize',windowSize2);
+
     })
 </script>
 {% endblock %}
@@ -51,4 +80,22 @@
     </form>
     </div>
 </div>
+<script>
+    // $(document).ready(function() {
+    //     var col = 2
+    //     $(window).resize(function(){
+    //         var windowInnerWidth = window.innerWidth
+    //         if ($(window).width() <= 823){
+    //             col = 3
+    //             // $('#id_ingredients').autocolumnlist({columns: 3})
+    //         }
+    //         else {
+    //             col = 4
+    //         }
+    //         console.log(col)
+    //         $('#id_ingredients').autocolumnlist({columns: col})
+    //     }).resize()
+        
+    // })
+</script>
 {% endblock %}

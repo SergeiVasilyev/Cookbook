@@ -31,11 +31,3 @@ class Recipe(models.Model):
     def __str__(self):
         return f"ReseptiList: {self.id} | {self.headline}"
     
-# class Recipe_Ingredient (models.Model):
-#     recipeFK = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=True, null=True)
-#     ingredFK = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=True, null=True)
-#     amount = models.FloatField()
-#     unit = models.CharField()
-#     def __str__(self):
-#         return f"Recipe_Ingredient: {self.id} | {self.recipeFK} | {self.ingredFK}"
-
