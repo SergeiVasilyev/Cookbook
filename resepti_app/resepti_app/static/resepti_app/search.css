@@ -1,9 +1,5 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap"); */
 
-.container{
-    
-}
-
 .col{
     max-width: 1000px;
 }
@@ -12,31 +8,30 @@
     height: 20vw;
     /* height: calc(20vw); */
     background-repeat: repeat-y;
-    background-image: url('pics/food.jpg');
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0)), url('pics/food.jpg');
     background-position: center;
     background-size: cover;
 }
 
 .search {
     position: relative;
-    box-shadow: 0 0 40px rgba(51, 51, 51, .1)
 }
 
 .search input {
     height: 60px;
     text-indent: 25px;
-    border: 2px solid #d6d4d4
+    border: 1.5px solid #0F1217
 }
 
 .search input:focus {
     box-shadow: none;
-    border: 2px solid #7e97be
+    border: 1.5px solid #DDDEE0
 }
 
 .search .fa-search {
     position: absolute;
     top: 20px;
-    left: 16px
+    left: 16px;
 }
 
 .search button {
@@ -45,5 +40,11 @@
     right: 5px;
     height: 50px;
     width: 110px;
-    background: 7e97be
+    background: #0D0E13;
+    border-color: #41414D;
+}
+
+.search button:hover {
+    background-color: #E78932;
+    border-color: #D98851;
 }

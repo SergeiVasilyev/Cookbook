@@ -8,9 +8,9 @@
 {% block content %}
 {% include 'resepti_app/search.html' %}
 <div class="content_warp_recipe">
-    
-    <div class="card_warp row">
+    <div class="card_warp row mt-4 mb-4">
         {% if recipes %}
+
         {% for el in recipes %}
                 <div class="card mx-2 my-2">
                     <img src="{{el.image.url}}" class="card-img-top pt-2" alt="...">
@@ -23,11 +23,10 @@
         {% endfor %}
         {% else %}
         <div class="mt-5" style="text-align: center;">
-            <p style="font-size: 2em">Hakusi ei tuottanut tuloksia</p>
+            <p style="font-size: 2em">Hakusi ei tuottanut tuloksia &#128546;</p>
         </div>
         {% endif %}
     </div>
     
 </div>
-
 {% endblock %}
