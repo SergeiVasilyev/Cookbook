@@ -12,7 +12,7 @@
         {% if recipes %}
         {% for el in recipes %}
             <div class="card mx-2 my-2">
-                <img src="{{el.image.url}}" class="card-img-top pt-2" alt="...">
+                <img src="{{el.image.url}}" class="card-img-top pt-2" alt="{{el.image}}">
                 <div class="card-body">
                     <h5 class="card-title">{{el.headline}}</h5>
                     <p class="card-text">{{el.body_text|truncatechars:63|striptags|safe}}</p> <!--slice:":80"-->

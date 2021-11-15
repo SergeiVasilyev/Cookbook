@@ -5,24 +5,9 @@ body {
     background: linear-gradient(0deg, rgba(255, 255, 239, 0.9), rgba(255, 255, 239, 0.90)), url('pics/patterni-konfeti.png');
 }
 
-.warp {
-    /* display: grid; */
-    /* max-width: 700px; */
-    
-}
-.form-headline{
-    font-size: 1.2em;
-    /* border: 1px red solid; */
-}
 
-.content_warp{
-    background-color: white;
-    max-width: 800px;
-}
-.row{
-    padding: 0 50px;
-}
 
+/* NAVBAR */
 .navbar-brand img{
     width: 100%;
     height: 50px;
@@ -37,26 +22,66 @@ body {
     font-weight: bold;
 }
 
+/* Add resepti */
+.content_warp{
+    background-color: white;
+    max-width: 800px;
+    padding: 0;
+}
+.content_warp > .row{
+    padding: 0 50px;
+}
+
+.form-headline{
+    font-size: 1.2em;
+    /* border: 1px red solid; */
+}
+
 #id_ingredients{
-    display: flex;
-    flex-direction: row;
+    /* display: flex;
+    flex-direction: row; */
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+    grid-template-rows: auto;
+    gap: 15px 0;
+    /* column-gap: 10px; */
+    justify-items: center;
 }
 
-.column{
-    justify-content: space-between;
-    max-width: 700px;
-}
-
-.list-group-item{
+.list-group-item {
+    background-color: inherit;
+    /* border: 1px solid rgba(0,0,0,.125); */
+    border: 0px solid rgba(0,0,0,.125);
+    min-width: 150px;
     max-width: 180px;
 }
 
+#id_ingredients div:nth-child(4n){
+    /* border: 1px red solid; */
+}
+
+/*----------- Add resepti */
+
+
+/* jQuery.AutoColumnList-1.2.0 */
+.column{
+    /* justify-content: space-between; */
+    max-width: 700px;
+    /* border: 1px red solid; */
+}
+
+
+
+/* RESPTI SIVUN */
 .img_crop{
     width: 100%;
     height: 500px;
     object-fit: cover;
     object-position: 0% 20%;
 }
+
+
 
 /* CARD */
 .content_warp_recipe{
@@ -96,11 +121,6 @@ body {
     }
 /* --CARD-- */
 
-.list-group-item {
-    background-color: inherit;
-    border: 1px solid rgba(0,0,0,.125);
-    min-width: 150px;
-}
 
 
 
