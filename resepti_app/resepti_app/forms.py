@@ -9,13 +9,14 @@ from ckeditor.fields import RichTextFormField
 class RecipeForm(ModelForm):
     class Meta:
         model = Recipe
-        fields = ['headline', 'body_text', 'image', 'categoryFK', 'ingredients']
+        fields = ['headline', 'ingredient_quantity', 'body_text', 'image', 'categoryFK', 'ingredients']
         widgets = {
             'headline': TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Lisää otsikko'
             }),
-            'body_text': RichTextFormField(),
+            'ingredient_quantity': RichTextFormField(config_name='default2'),
+            'body_text': RichTextFormField(config_name='default'),
             # 'body_text': widgets.Textarea(attrs={
             #     'class': 'form-control',
             #     'placeholder': 'lisää resepti'
