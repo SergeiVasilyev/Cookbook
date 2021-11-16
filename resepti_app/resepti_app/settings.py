@@ -148,6 +148,9 @@ CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 CKEDITOR_CONFIGS = {
     'default': {
         # 'skin': 'office2013',
+        'toolbar': 'YourCustomToolbarConfig',
+        'width': '100%',
+        'tabSpaces': 4,
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],
@@ -162,25 +165,13 @@ CKEDITOR_CONFIGS = {
             {'name': 'clipboard', 'items': ['Undo', 'Redo']},
             
         ],
-        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
-        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
-        # 'height': 291,
-        'width': '50%',
-        # 'filebrowserWindowHeight': 725,
-        # 'filebrowserWindowWidth': 940,
-        # 'toolbarCanCollapse': True,
-        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
-        'tabSpaces': 4,
-
     },
-    'default2': {
-        'skin': 'office2013',
-        'toolbar_custom': [
+    'special': {
+        'toolbar': 'Special',  # put selected toolbar config here
+        'toolbar_Special': [
             ['Source', '-', 'Bold', 'Italic']
         ],
-        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
-        'width': '50px',
+        'width': '100%',
         'tabSpaces': 4,
-
     }
 }

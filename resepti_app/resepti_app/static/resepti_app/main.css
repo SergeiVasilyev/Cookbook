@@ -13,14 +13,14 @@ body {
     height: 50px;
     /* border: 1px red solid; */
 }
+    .navbar-nav{
+        text-align: right;
+    }
 
-.navbar-nav{
-    text-align: right;
-}
+    .nav-item {
+        font-weight: bold;
+    }
 
-.nav-item {
-    font-weight: bold;
-}
 
 /* Add resepti */
 .content_warp{
@@ -28,38 +28,33 @@ body {
     max-width: 800px;
     padding: 0;
 }
-.content_warp > .row{
-    padding: 0 50px;
-}
+    .content_warp > .row{
+        padding: 0 50px;
+    }
 
-.form-headline{
-    font-size: 1.2em;
-    /* border: 1px red solid; */
-}
+    .form-headline{
+        font-size: 1.2em;
+        /* border: 1px red solid; */
+    }
 
-#id_ingredients{
-    /* display: flex;
-    flex-direction: row; */
-    display: grid;
-    /* grid-template-columns: 1fr 1fr 1fr; */
-    grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
-    grid-template-rows: auto;
-    gap: 15px 0;
-    /* column-gap: 10px; */
-    justify-items: center;
-}
+    #id_ingredients{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+        grid-template-rows: auto;
+        gap: 15px 0;
+        justify-items: center;
+    }
 
-.list-group-item {
-    background-color: inherit;
-    /* border: 1px solid rgba(0,0,0,.125); */
-    border: 0px solid rgba(0,0,0,.125);
-    min-width: 150px;
-    max-width: 180px;
-}
+    .list-group-item {
+        background-color: inherit;
+        border: 0px solid rgba(0,0,0,.125);
+        min-width: 150px;
+        max-width: 180px;
+    }
 
-#id_ingredients div:nth-child(4n){
-    /* border: 1px red solid; */
-}
+    #id_ingredients div:nth-child(4n){
+        /* border: 1px red solid; */
+    }
 
 /*----------- Add resepti */
 
@@ -68,7 +63,6 @@ body {
 .column{
     /* justify-content: space-between; */
     max-width: 700px;
-    /* border: 1px red solid; */
 }
 
 
@@ -99,20 +93,12 @@ body {
     }
 
     .card_warp{
-        /* display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: unsafe center; */
-        /* border: 1px green solid; */
-        /* display: inline-block; */
-        /* max-width: auto; */
         display: grid;
         /* grid-template-columns: 1fr 1fr 1fr; */
         grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
         grid-template-rows: auto;
         column-gap: 10px;
         justify-items: center;
-        /* justify-content:space-between; */
     }
 
     .card{
@@ -121,17 +107,6 @@ body {
     }
 /* --CARD-- */
 
-
-
-
-
-
-
-
-
-/* .form-control {
-    width: 100%;
-} */
 
 
 

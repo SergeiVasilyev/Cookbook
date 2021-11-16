@@ -1,7 +1,5 @@
 from django.http import response
 from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from .forms import RecipeForm, CategoryForm, IngredientForm
 from django.core.files.storage import FileSystemStorage
@@ -36,7 +34,9 @@ def add_resepti(request):
                 print('category ', category)
             else:
                 form.save()
+            # elem = Recipe.objects.get(categoryFK=category)
             return redirect('add_resepti')
+            # return redirect('/resepti/' + str(elem))
     else:
         form = RecipeForm()
         form_ingrediet = IngredientForm()
@@ -96,50 +96,7 @@ def edit_resepti(request, id):
     return render(request, 'resepti_app/edit_resepti.html', context)
     # return HttpResponse('successfully uploaded: ' + str(id))
 
-
-
-
-# def add_resepti(request):
-    
-#     if request.method == 'POST':
-#         form = RecipeForm(request.POST, request.FILES)
-#         ing = IngredientForm(request.POST)
-#         cat = CategoryForm(request.POST)
-#         #print('REQUEST:: ', form.base_fields)
-
-#         if cat.is_valid() and cat.cleaned_data['cat_name']:
-#             category = cat.save()
-#         else:
-#             category = None
-
-#         if ing.is_valid() and ing.cleaned_data['ing_name']:
-#             ingredient = ing.save()
-#         else:
-#             ingredient = None
-        
-#         if form.is_valid():
-#             if ingredient:
-#                 Resepti_item = form.save(commit=False)
-#                 Resepti_item.ingredientFK = ingredient
-#                 Resepti_item.save()
-#                 print('ingridient ', ingredient)
-#                 # return redirect('success')
-#             # if category:
-#             #     category_item = form.save(commit=False)
-#             #     category_item.ingridientFK = category
-#             #     category_item.save()
-#             else:
-#                 form.save()
-#             return HttpResponse('successfully uploaded')
-#     else:
-#         form = RecipeForm()
-#         form_ingridiet = IngridientForm()
-#         form_category = CategoryForm()
-#         context = {
-#             'form': form,
-#             'form_ingridiet': form_ingridiet,
-#             'form_category': form_category,
-#         }
-        
-#     return render(request, 'resepti_app/add_resepti.html', context)
-
+def poista_resepti (request, idx):
+    item = Recipe.objects.get(id=idx)
+    item.delete()
+    return redirect ('home')

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<title>Compare report</title>
+	</head>
+	<body>
+		<style>table {font-family:"Lucida Sans Unicode", "Lucida Grande", Sans-Serif;font-size:12px;text-align:left;} .missing {color:red;} .differs {color:red;} .object td,th {border-top:solid 1px; border-right:solid 1px; border-color: black; white-space:nowrap;} .property td,th {border-top:dashed 1px; border-right:solid 1px; border-color: black; white-space:pre; } .struct {border-top:none; !important } .level1 td,th { text-align:left; padding-left:20px; } .level2 td,th { text-align:left; padding-left:40px; } .level3 td,th { text-align:left; padding-left:60px; } .level4 td,th { text-align:left; padding-left:80px; } </style>
+		<table width="100%" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>Structure</th>
+				<th>resepti_app_category</th>
+				<th>resepti_app_ingredient</th>
+				<th>resepti_app_recipe</th>
+				<th>resepti_app_recipe_ingredients</th>
+			</tr>
+			<tr class="object level1" valign="top">
+				<td>Table</td>
+				<td>resepti_app_category</td>
+				<td>resepti_app_ingredient</td>
+				<td>resepti_app_recipe</td>
+				<td>resepti_app_recipe_ingredients</td>
+			</tr>
+			<tr class="property level2 differs" valign="top">
+				<td>Definition</td>
+				<td>CREATE TABLE &quot;resepti_app_category&quot; (&quot;id&quot; integer NOT NULL PRIMARY KEY AUTOINCREMENT, &quot;cat_name&quot; varchar(200) NOT NULL);
+</td>
+				<td>CREATE TABLE &quot;resepti_app_ingredient&quot; (&quot;id&quot; integer NOT NULL PRIMARY KEY AUTOINCREMENT, &quot;ing_name&quot; varchar(200) NOT NULL);
+</td>
+				<td>CREATE TABLE &quot;resepti_app_recipe&quot; (&quot;id&quot; integer NOT NULL PRIMARY KEY AUTOINCREMENT, &quot;headline&quot; varchar(300) NOT NULL, &quot;image&quot; varchar(100) NOT NULL, &quot;categoryFK_id&quot; bigint NULL REFERENCES &quot;resepti_app_category&quot; (&quot;id&quot;) DEFERRABLE INITIALLY DEFERRED, &quot;body_text&quot; text NULL);
+
+CREATE INDEX &quot;resepti_app_recipe_categoryFK_id_fe8069e6&quot; ON &quot;resepti_app_recipe&quot; (&quot;categoryFK_id&quot;);
+</td>
+				<td>CREATE TABLE &quot;resepti_app_recipe_ingredients&quot; (&quot;id&quot; integer NOT NULL PRIMARY KEY AUTOINCREMENT, &quot;recipe_id&quot; bigint NOT NULL REFERENCES &quot;resepti_app_recipe&quot; (&quot;id&quot;) DEFERRABLE INITIALLY DEFERRED, &quot;ingredient_id&quot; bigint NOT NULL REFERENCES &quot;resepti_app_ingredient&quot; (&quot;id&quot;) DEFERRABLE INITIALLY DEFERRED);
+
+CREATE UNIQUE INDEX &quot;resepti_app_recipe_ingredients_recipe_id_ingredient_id_7c11754e_uniq&quot; ON &quot;resepti_app_recipe_ingredients&quot; (&quot;recipe_id&quot;, &quot;ingredient_id&quot;);
+CREATE INDEX &quot;resepti_app_recipe_ingredients_recipe_id_66a391c4&quot; ON &quot;resepti_app_recipe_ingredients&quot; (&quot;recipe_id&quot;);
+CREATE INDEX &quot;resepti_app_recipe_ingredients_ingredient_id_0a35ca80&quot; ON &quot;resepti_app_recipe_ingredients&quot; (&quot;ingredient_id&quot;);
+</td>
+			</tr>
+			<tr class="object level2" valign="top">
+				<td>Columns</td>
+				<td colspan="4">&nbsp;</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Column</td>
+				<td>id</td>
+				<td>id</td>
+				<td>id</td>
+				<td>id</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Column</td>
+				<td>cat_name</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Column</td>
+				<td class="missing">N/A</td>
+				<td>ing_name</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Column</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>headline</td>
+				<td class="missing">N/A</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Column</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>image</td>
+				<td class="missing">N/A</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Column</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>categoryFK_id</td>
+				<td class="missing">N/A</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Column</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>body_text</td>
+				<td class="missing">N/A</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Column</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>recipe_id</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Column</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>ingredient_id</td>
+			</tr>
+			<tr class="object level2" valign="top">
+				<td>Keys</td>
+				<td colspan="4">&nbsp;</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Key</td>
+				<td>RESEPTI_APP_CATEGORY_PK</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Key</td>
+				<td class="missing">N/A</td>
+				<td>RESEPTI_APP_INGREDIENT_PK</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Key</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>RESEPTI_APP_RECIPE_PK</td>
+				<td class="missing">N/A</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Key</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>RESEPTI_APP_RECIPE_INGREDIENTS_PK</td>
+			</tr>
+			<tr class="object level2" valign="top">
+				<td>Foreign Keys</td>
+				<td colspan="4">&nbsp;</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Foreign Key</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>FK_resepti_app_recipe_resepti_app_category</td>
+				<td class="missing">N/A</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Foreign Key</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>FK_resepti_app_recipe_ingredients_resepti_app_ingredient</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Foreign Key</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>FK_resepti_app_recipe_ingredients_resepti_app_recipe_2</td>
+			</tr>
+			<tr class="object level2" valign="top">
+				<td>Indexes</td>
+				<td colspan="4">&nbsp;</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Index</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>resepti_app_recipe_categoryFK_id_fe8069e6</td>
+				<td class="missing">N/A</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Index</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>resepti_app_recipe_ingredients_ingredient_id_0a35ca80</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Index</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>resepti_app_recipe_ingredients_recipe_id_66a391c4</td>
+			</tr>
+			<tr class="object level3" valign="top">
+				<td>Index</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td class="missing">N/A</td>
+				<td>resepti_app_recipe_ingredients_recipe_id_ingredient_id_7c11754e_uniq</td>
+			</tr>
+			<tr class="object">
+				<td colspan="5">26 objects compared</td>
+			</tr>
+		</table>
+	</body>
+</html>

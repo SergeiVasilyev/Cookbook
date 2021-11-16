@@ -15,8 +15,8 @@ class RecipeForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Lisää otsikko'
             }),
-            'ingredient_quantity': RichTextFormField(config_name='default2'),
-            'body_text': RichTextFormField(config_name='default'),
+            'ingredient_quantity': RichTextFormField(),
+            'body_text': RichTextFormField(),
             # 'body_text': widgets.Textarea(attrs={
             #     'class': 'form-control',
             #     'placeholder': 'lisää resepti'
