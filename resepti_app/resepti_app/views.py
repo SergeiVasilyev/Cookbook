@@ -5,8 +5,9 @@ from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from .forms import RecipeForm, CategoryForm, IngredientForm, Basic_ingredientForm, Recipe_IngredientForm
 from django.core.files.storage import FileSystemStorage
-from .models import Recipe, Ingredient, Category, Basic_ingredient
+from .models import Recipe, Ingredient, Category, Basic_ingredient, Recipe_Ingredient
 from django.db.models import Q
+from django.forms import formset_factory, modelformset_factory
 
 
 def index (request):
@@ -17,14 +18,52 @@ def index (request):
     return render(request, 'resepti_app/index.html', context)
 
 def add_resepti(request):
+    IngredientFormSet = formset_factory(IngredientForm) #modelformset_factory
+    if request.method == 'POST':
+        formset = IngredientFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            formset.save()
+            print('SAVED')
+            for form in formset:
+                print(form.cleaned_data)
+            return redirect('add_resepti')
+    else:
+        formset = IngredientFormSet()
+        context = {
+            'formset': formset,
+        }
+    return render(request, 'resepti_app/add_resepti.html', context)
+
+
+
+def add_resepti2(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
         cat = CategoryForm(request.POST)
         ingredient = IngredientForm(request.POST)
-        #print('REQUEST:: ', form.base_fields)
+        amount = Recipe_IngredientForm(request.POST)
+        print('REQUEST:: ', form.base_fields)
+        if cat.is_valid() and cat.cleaned_data['cat_name']:
+            category = cat.save()
+        else:
+            category = None
+        
+        if form.is_valid():
+            if category:
+                Resepti_item = form.save(commit=False)
+                Resepti_item.categoryFK = category
+                Resepti_item.save()
+                form.save()
+                print('category ', category)
+            else:
+                Resepti_item = form.save()
 
+            ing = ingredient.save()
+            ing_rec = Recipe_Ingredient(amount=amount, ingredient=ing, recipe=Resepti_item)
+            ing_rec.save()
+            print(ing_rec)
 
-
+            return redirect('add_resepti')
 
     form = RecipeForm()
     form_basic_ingrediet = Basic_ingredientForm()
@@ -86,6 +125,57 @@ def edit_resepti(request, id):
     }
     return render(request, 'resepti_app/edit_resepti.html', context)
     # return HttpResponse('successfully uploaded: ' + str(id))
+
+
+
+# def add_resepti(request):
+#     if request.method == 'POST':
+#         form = RecipeForm(request.POST, request.FILES)
+#         cat = CategoryForm(request.POST)
+#         ingredient = IngredientForm(request.POST)
+#         amount = Recipe_IngredientForm(request.POST)
+#         #print('REQUEST:: ', form.base_fields)
+#         if cat.is_valid() and cat.cleaned_data['cat_name']:
+#             category = cat.save()
+#         else:
+#             category = None
+        
+#         if form.is_valid():
+#             if category:
+#                 Resepti_item = form.save(commit=False)
+#                 Resepti_item.categoryFK = category
+#                 Resepti_item.save()
+#                 form.save()
+#                 print('category ', category)
+#             else:
+#                 Resepti_item = form.save()
+
+#             ing = ingredient.save()
+#             ing_rec = Recipe_Ingredient(amount=amount, ingredient=ing, recipe=Resepti_item)
+#             ing_rec.save()
+#             print(ing_rec)
+
+#             return redirect('add_resepti')
+
+
+
+#     form = RecipeForm()
+#     form_basic_ingrediet = Basic_ingredientForm()
+#     form_category = CategoryForm()
+#     form_ingredient = IngredientForm()
+#     form_amount = Recipe_IngredientForm()
+#     context = {
+#         'form': form,
+#         'form_basic_ingrediet': form_basic_ingrediet,
+#         'form_category': form_category,
+#         'form_ingredient': form_ingredient,
+#         'form_amount': form_amount,
+#     }
+        
+#     return render(request, 'resepti_app/add_resepti.html', context)
+  
+
+
 
 
 

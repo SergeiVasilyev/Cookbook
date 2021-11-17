@@ -9,7 +9,7 @@
     $(document).ready(function() {
         //https://github.com/Neolot/jQuery.AutoColumnList
         //https://neolot.com/narabotki/autocolumnlist-jquery-plugin-dlya-razdeleniya-spiskov-na-kolonki
-        $('#id_ingredients').autocolumnlist({columns: 10});
+        $('#id_basic_ingredient').autocolumnlist({columns: 10});
 
         $('.check_warp').find("ul").addClass('list-group')
         $('.check_warp').find("li").addClass('list-group-item')
@@ -27,12 +27,23 @@
     <div class="row">
     <form method="post" class="mb-4" autocomplete="off" enctype="multipart/form-data">
         {% csrf_token %}
+        {{ formset.management_form }}
         <div class="h1 pb-4 pt-4">Reseptin Lisääminen</div>
         <div class="pb-3 ">
             <p>Anna reseptille mieleisesi otsikko. Esim. "Suussasulavat suklaakeksit"</p>
             {{ form.headline }}
         </div>
-        <div class="pb-3 border-bottom mb-4">{{ form_ingredient.ing_name }}{{ form_amount.amount }}</div>
+
+        <div class="pb-3 border-bottom mb-4">
+            {% if formset  %}
+            {% for form_ingredient in formset %}
+                {{ form_ingredient }}
+            {% endfor %}
+            {% endif %}
+            <!-- {{ form_ingredient.ing_name }} -->
+            {{ form_amount.amount }}
+        </div>
+
         <div class="pb-3 border-bottom mb-4">{{ form.body_text }}</div>
         <div class="pb-3 border-bottom mb-4">
             <p class="form-headline d-flex justify-content-end">Lisää kuva</p>

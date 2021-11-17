@@ -41,8 +41,8 @@ class Recipe(models.Model):
         return f"ReseptiList: {self.id} | {self.headline}"
     
 class Recipe_Ingredient(models.Model):
-    recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=True, null=True)
-    ingredient_id = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=True, null=True)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=True, null=True)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=True, null=True)
     amount = models.CharField(max_length=50)
 
     def __str__(self):

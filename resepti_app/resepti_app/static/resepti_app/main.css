@@ -37,7 +37,7 @@ body {
     /* border: 1px red solid; */
 }
 
-#id_ingredients{
+#id_basic_ingredient{
     /* display: flex;
     flex-direction: row; */
     display: grid;
