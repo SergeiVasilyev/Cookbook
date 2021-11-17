@@ -18,7 +18,16 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.ing_name
+
+class Basic_ingredient(models.Model):
+    basicing_name = models.CharField(max_length=200)
+    class Meta:
+        ordering = ('basicing_name',)
+
+    def __str__(self):
+        return self.basicing_name
     
+
 class Recipe(models.Model):
     headline = models.CharField(max_length=300)
     body_text = RichTextField(blank=True, null=True)
@@ -26,8 +35,15 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to='images/')
     # slug = AutoSlugField(populate_from='headline')
     categoryFK = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True) #SET_DEFAULT , to_field='name'
-    ingredients = models.ManyToManyField(Ingredient, related_name='recipes') # recipe_set
+    basic_ingredient = models.ManyToManyField(Basic_ingredient, related_name='recipes') # recipe_set
 
     def __str__(self):
         return f"ReseptiList: {self.id} | {self.headline}"
     
+class Recipe_Ingredient(models.Model):
+    recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=True, null=True)
+    ingredient_id = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=True, null=True)
+    amount = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"Resipe_Ingredient: {self.recipe_id} | {self.ingredient_id} | {self.amount}"

@@ -1,6 +1,6 @@
 from django import forms
 from django.db import models
-from .models import Recipe, Category, Ingredient
+from .models import Recipe, Category, Ingredient, Basic_ingredient, Recipe_Ingredient
 from django.forms import ModelForm, widgets, TextInput, CheckboxInput
 from ckeditor.widgets import CKEditorWidget
 from ckeditor.fields import RichTextFormField
@@ -9,7 +9,7 @@ from ckeditor.fields import RichTextFormField
 class RecipeForm(ModelForm):
     class Meta:
         model = Recipe
-        fields = ['headline', 'body_text', 'image', 'categoryFK', 'ingredients']
+        fields = ['headline', 'body_text', 'image', 'categoryFK', 'basic_ingredient']
         widgets = {
             'headline': TextInput(attrs={
                 'class': 'form-control',
@@ -27,11 +27,26 @@ class RecipeForm(ModelForm):
             'categoryFK': widgets.Select(attrs={
                 'class': 'form-select',
             }),
-            'ingredients': widgets.CheckboxSelectMultiple(attrs={
-                'class': '',
+            'basic_ingredient': widgets.CheckboxSelectMultiple(attrs={
+            'class': '',
             })
+
         }
 
+
+
+class Basic_ingredientForm(ModelForm):
+    class Meta:
+        model = Basic_ingredient
+        fields = ['basicing_name']
+        widgets = {
+            'basicing_name': widgets.CheckboxSelectMultiple(attrs={
+                'class': 'form-check-input',
+            }),
+        }
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['basicing_name'].required = False
 
 
 class IngredientForm(ModelForm):
@@ -39,13 +54,24 @@ class IngredientForm(ModelForm):
         model = Ingredient
         fields = ['ing_name']
         widgets = {
-            'ing_name': widgets.CheckboxSelectMultiple(attrs={
-                'class': 'form-check-input',
+            'ing_name': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Lisää raaka-aine'
+            }),
+
+        }
+
+
+class Recipe_IngredientForm(ModelForm):
+    class Meta:
+        model = Recipe_Ingredient
+        fields = ['amount']
+        widgets = {
+            'amount': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Lisää ainemäärä'
             }),
         }
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['ing_name'].required = False
 
 
 class CategoryForm(ModelForm):

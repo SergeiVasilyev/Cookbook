@@ -3,9 +3,9 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
-from .forms import RecipeForm, CategoryForm, IngredientForm
+from .forms import RecipeForm, CategoryForm, IngredientForm, Basic_ingredientForm, Recipe_IngredientForm
 from django.core.files.storage import FileSystemStorage
-from .models import Recipe, Ingredient, Category
+from .models import Recipe, Ingredient, Category, Basic_ingredient
 from django.db.models import Q
 
 
@@ -20,33 +20,24 @@ def add_resepti(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
         cat = CategoryForm(request.POST)
+        ingredient = IngredientForm(request.POST)
         #print('REQUEST:: ', form.base_fields)
 
-        if cat.is_valid() and cat.cleaned_data['cat_name']:
-            category = cat.save()
-        else:
-            category = None
-        
-        if form.is_valid():
-            if category:
-                Resepti_item = form.save(commit=False)
-                Resepti_item.categoryFK = category
-                Resepti_item.save()
-                form.save()
-                print('category ', category)
-            else:
-                form.save()
-            return redirect('add_resepti')
-    else:
-        form = RecipeForm()
-        form_ingrediet = IngredientForm()
-        form_category = CategoryForm()
-        
-        context = {
-            'form': form,
-            'form_ingridiet': form_ingrediet,
-            'form_category': form_category,
-        }
+
+
+
+    form = RecipeForm()
+    form_basic_ingrediet = Basic_ingredientForm()
+    form_category = CategoryForm()
+    form_ingredient = IngredientForm()
+    form_amount = Recipe_IngredientForm()
+    context = {
+        'form': form,
+        'form_basic_ingrediet': form_basic_ingrediet,
+        'form_category': form_category,
+        'form_ingredient': form_ingredient,
+        'form_amount': form_amount,
+    }
         
     return render(request, 'resepti_app/add_resepti.html', context)
   
