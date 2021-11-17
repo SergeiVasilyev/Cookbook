@@ -108,6 +108,10 @@ body {
 /* --CARD-- */
 
 
+/* CKeditor */
+.django-ckeditor-widget{
+    width: 100%;
+}
 
 
 

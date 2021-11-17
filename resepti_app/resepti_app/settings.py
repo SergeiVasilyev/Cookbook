@@ -169,9 +169,12 @@ CKEDITOR_CONFIGS = {
     'special': {
         'toolbar': 'Special',  # put selected toolbar config here
         'toolbar_Special': [
-            ['Source', '-', 'Bold', 'Italic']
+            ['Bold', 'Italic']
         ],
+        'extraPlugins': ','.join(['placeholder',]),
+        'placeholder': 'blabla',
         'width': '100%',
+        'height': '20%',
         'tabSpaces': 4,
     }
 }
