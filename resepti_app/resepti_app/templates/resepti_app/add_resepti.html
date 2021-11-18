@@ -14,10 +14,25 @@
         $('.check_warp').find("ul").addClass('list-group')
         $('.check_warp').find("li").addClass('list-group-item')
         $('.check_warp').find("input").addClass('form-check-input me-1')
-        // $('.check_warp p').click(function(){
-        //     console.log($('.check_warp p').attr('class'))
-        //     $('.check_warp div').toggle("slow")
-        // })
+
+        $('#add_field').click(function(){
+            console.log('click')
+            var r = /\d+/;
+            var last_input_name = $('#formset_block input:last').attr('name')
+            counter = parseInt(last_input_name.match(r), 10) + 1
+            console.log('counter ' + counter)
+
+            var $input = $('#formset_block input:last').clone()
+            $('#formset_block input:last').after($input)
+
+            var form_name = 'form-' + counter + '-ing_name'
+            var form_id = 'id_form-' + counter + '-ing_name'
+            $('#formset_block input:last').attr('name', form_name)
+            $('#formset_block input:last').attr('id', form_id)
+
+            $('#id_form-TOTAL_FORMS').attr('value', counter+1)
+        })
+    
         
     })
 </script>
@@ -34,14 +49,19 @@
             {{ form.headline }}
         </div>
 
-        <div class="pb-3 border-bottom mb-4">
-            {% if formset  %}
-            {% for form_ingredient in formset %}
-                {{ form_ingredient }}
-            {% endfor %}
-            {% endif %}
-            <!-- {{ form_ingredient.ing_name }} -->
-            {{ form_amount.amount }}
+        <div class="pb-3 border-bottom mb-4" id="formset_block">
+            <div class="mb-2 "> <!--input-group нужно продублировать div целиком и не забыть, что мы используем input:last -->
+                {% if formset  %}
+                {% for form_ingredient in formset %}
+                    {{ form_ingredient.ing_name }}
+                {% endfor %}
+                {% endif %}
+                <!-- {{ form_ingredient.ing_name }} -->
+                <!-- {{ form_amount.amount }} -->
+            </div>
+            <div style="text-align: right;">
+                <a href="#" onclick="return false;" id="add_field"><button type="button" class="btn btn-success mb-4 px-4">Lisää kenttä</button></a>
+            </div>
         </div>
 
         <div class="pb-3 border-bottom mb-4">{{ form.body_text }}</div>
