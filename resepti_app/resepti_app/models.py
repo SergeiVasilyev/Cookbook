@@ -46,4 +46,4 @@ class Recipe_Ingredient(models.Model):
     amount = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"Resipe_Ingredient: {self.recipe_id} | {self.ingredient_id} | {self.amount}"
+        return self.amount

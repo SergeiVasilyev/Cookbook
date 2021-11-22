@@ -18,19 +18,32 @@
         $('#add_field').click(function(){
             console.log('click')
             var r = /\d+/;
-            var last_input_name = $('#formset_block input:last').attr('name')
-            counter = parseInt(last_input_name.match(r), 10) + 1
-            console.log('counter ' + counter)
 
-            var $input = $('#formset_block input:last').clone()
-            $('#formset_block input:last').after($input)
+            // yrittämme löyttää meidän DIV ing_amount_1, jossa on inputia
+            var last_div_id = $('#formset_block div:last').attr('id')
+            counter2 = parseInt(last_div_id.match(r), 10) + 1 // Etsimme tässä numero, 10 se on lukujärjestelmä ja suurentaa 1
+            console.log('DIV numero ' + counter2)
+            var $last_div = $('#formset_block div:last').clone() // tehdään div clone
+            $('#formset_block div:last').after($last_div) // lisäämme uuden div vanhan div:n jälkeen
+            var div_id = "ing_amount_" + counter2
+            $('#formset_block div:last').attr('id', div_id)
+            // Nyt meidän pitää laitaa uusi INPUT DIV:n sisään - JS kopioi DIV ja kaikki sisältö automaatisesti
+            // Meidän pitää vain vaihtaa name INPUT:ssa
+            div_counter = counter2 - 1 
+            console.log('INPUT ' + $('#formset_block div:last #id_form-'+div_counter+'-ing_name').attr("type"))
+            var form_name = 'form-' + counter2 + '-ing_name'
+            var form_id = 'id_form-' + counter2 + '-ing_name'
+            $('#formset_block div:last #id_form-'+div_counter+'-ing_name').attr("name", form_name) // Etsitaan edellinen INPUT siksi counter:sta vähennetaan 1, ja laitetaan uusi <name>
+            $('#formset_block div:last #id_form-'+div_counter+'-ing_name').attr("id", form_id) // sama laitetaan uusi <id>
 
-            var form_name = 'form-' + counter + '-ing_name'
-            var form_id = 'id_form-' + counter + '-ing_name'
-            $('#formset_block input:last').attr('name', form_name)
-            $('#formset_block input:last').attr('id', form_id)
+            // Nyt tehdään sama asia kuin INPUT:ssa
+            var amount_form_name = 'form-' + counter2 + '-amount'
+            var amount_form_id = 'id_form-' + counter2 + '-amount'
+            $('#formset_block div:last #id_form-'+div_counter+'-amount').attr("name", amount_form_name)
+            $('#formset_block div:last #id_form-'+div_counter+'-amount').attr("id", amount_form_id)
 
-            $('#id_form-TOTAL_FORMS').attr('value', counter+1)
+            $('#id_form-TOTAL_FORMS').attr('value', counter2+1)
+
         })
     
         
@@ -50,19 +63,25 @@
         </div>
 
         <div class="pb-3 border-bottom mb-4" id="formset_block">
-            <div class="mb-2 "> <!--input-group нужно продублировать div целиком и не забыть, что мы используем input:last -->
+            <div class="mb-2 " id="ing_amount_0"> <!--input-group нужно продублировать div целиком и не забыть, что мы используем input:last -->
                 {% if formset  %}
                 {% for form_ingredient in formset %}
                     {{ form_ingredient.ing_name }}
                 {% endfor %}
                 {% endif %}
-                <!-- {{ form_ingredient.ing_name }} -->
-                <!-- {{ form_amount.amount }} -->
+
+                {% if formset_amount  %}
+                {% for el in formset_amount %}
+                    {{ el.amount }}
+                {% endfor %}
+                {% endif %}
             </div>
-            <div style="text-align: right;">
-                <a href="#" onclick="return false;" id="add_field"><button type="button" class="btn btn-success mb-4 px-4">Lisää kenttä</button></a>
-            </div>
+            
         </div>
+        <div style="text-align: right;" id="button">
+            <a href="#" onclick="return false;" id="add_field"><button type="button" class="btn btn-success mb-4 px-4">Lisää kenttä</button></a>
+        </div>
+
 
         <div class="pb-3 border-bottom mb-4">{{ form.body_text }}</div>
         <div class="pb-3 border-bottom mb-4">

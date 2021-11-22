@@ -39,7 +39,8 @@ def add_resepti2(request):
 
 
 def add_resepti(request):
-    IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm, extra=1) #modelformset_factory
+    IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm) #modelformset_factory
+    Recipe_IngredientFormSet = modelformset_factory(Recipe_Ingredient, form=Recipe_IngredientForm)
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
         cat = CategoryForm(request.POST)
@@ -47,7 +48,8 @@ def add_resepti(request):
         amount = Recipe_IngredientForm(request.POST)
         print('request.POST ', request.POST)
         formset = IngredientFormSet(request.POST)
-        print(formset.cleaned_data)
+        formset_amount = Recipe_IngredientFormSet(request.POST)
+        print(formset_amount.cleaned_data)
         # print('REQUEST:: ', form.base_fields)
         if cat.is_valid() and cat.cleaned_data['cat_name']:
             category = cat.save()
@@ -64,22 +66,48 @@ def add_resepti(request):
             else:
                 Resepti_item = form.save()
             
-        if formset.is_valid():
+        # if formset_amount.is_valid():
+        #     instance = formset_amount.save()
+        #     for form in instance:
+        #         print("AMOUNT :: ", form)
+
+
+        def save_data(instance, instance_amount):
+            if instance:
+                print(instance)
+                x = instance
+            if instance_amount:
+                print(instance_amount)
+                x = instance_amount
+            return x
+
+
+
+        if formset.is_valid() and formset_amount.is_valid():
             instance = formset.save() # Нужно чтобы далее использовать как инстнас для записи в поле ingredient
+            instance_amount = formset_amount.save(commit=False) # Если не использовать commit=False записывает в базу данных 2 раза
             print('SAVED')
-            for form in instance: # пройти по всем полям в инстанс, а не в formset
+            i = 0
+            for form, amount in zip(instance, instance_amount): # пройти по всем полям в инстанс, а не в formset
+            # for form, amount in instance, instance_amount:
                 # print(form.cleaned_data)
                 # ing = ingredient.save()
-                print(form)
+                i = i+1
+                print('i = ', i)
+                print('form ', form)
+                print('amount', amount)
                 ing_rec = Recipe_Ingredient(amount=amount, ingredient=form, recipe=Resepti_item) # ingredient=form INSTANCE ERROR
                 ing_rec.save()
-                print(ing_rec)
+                # Recipe_Ingredient(amount=amount, recipe=Resepti_item).save()
+                # print(ing_rec)
+                # Se tekee 2 kerta cykle, meidän tarvii 1
             
-            
-
-            return redirect('add_resepti')
 
 
+
+        
+        return redirect('add_resepti')
+        
 
     form = RecipeForm()
     form_basic_ingrediet = Basic_ingredientForm()
@@ -87,6 +115,7 @@ def add_resepti(request):
     form_ingredient = IngredientForm()
     form_amount = Recipe_IngredientForm()
     formset = IngredientFormSet(request.POST or None, queryset=Ingredient.objects.none())
+    formset_amount = Recipe_IngredientFormSet(request.POST or None, queryset=Recipe_Ingredient.objects.none())
     context = {
         'form': form,
         'form_basic_ingrediet': form_basic_ingrediet,
@@ -94,6 +123,7 @@ def add_resepti(request):
         'form_ingredient': form_ingredient,
         'form_amount': form_amount,
         'formset': formset,
+        'formset_amount': formset_amount,
     }
         
     return render(request, 'resepti_app/add_resepti.html', context)
