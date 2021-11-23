@@ -29,6 +29,13 @@
         <div class="pb-3 ">
             {{ form.headline }}
         </div>
+
+        <div class="pb-3 border-bottom mb-4" id="formset_block">
+            <div class="mb-2 " id="ing_amount_0"> <!--input-group нужно продублировать div целиком и не забыть, что мы используем input:last -->
+                {{ formset }}
+            </div>
+        </div>
+
         <!-- <div class="pb-3 border-bottom mb-4">{{ form.body_text|safe }}</div> -->
         <div class="pb-3 border-bottom mb-4">{{ form.body_text }}</div>
         <div class="pb-3 border-bottom mb-4">
@@ -38,7 +45,7 @@
         
         <div class="check_warp pb-3 border-bottom mb-4">
             <p class="form-headline d-flex justify-content-end">Valitse päärakaa-aineet</p>
-            <div style="display: block;">{{ form.ingredients }}</div>
+            <div style="display: block;">{{ form.basic_ingredient }}</div>
         </div>
         
         <div class="pb-3">

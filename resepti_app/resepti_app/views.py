@@ -17,7 +17,7 @@ def index (request):
     }  
     return render(request, 'resepti_app/index.html', context)
 
-def add_resepti2(request):
+def add_resepti2(request): # Testi funktio: miten formset factory toimii
     IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm, extra=1) #modelformset_factory
     if request.method == 'POST':
         print('request.POST ', request.POST)
@@ -66,46 +66,20 @@ def add_resepti(request):
             else:
                 Resepti_item = form.save()
             
-        # if formset_amount.is_valid():
-        #     instance = formset_amount.save()
-        #     for form in instance:
-        #         print("AMOUNT :: ", form)
-
-
-        def save_data(instance, instance_amount):
-            if instance:
-                print(instance)
-                x = instance
-            if instance_amount:
-                print(instance_amount)
-                x = instance_amount
-            return x
-
-
-
         if formset.is_valid() and formset_amount.is_valid():
-            instance = formset.save() # Нужно чтобы далее использовать как инстнас для записи в поле ingredient
-            instance_amount = formset_amount.save(commit=False) # Если не использовать commit=False записывает в базу данных 2 раза
+            # Нужно чтобы далее использовать как инстнас для записи в поле ingredient
+            instance = formset.save() # Tarvitsee jos me halutaan tallentaa Recipe_Ingredientiin
+            # Если не использовать commit=False записывает в базу данных 2 раза
+            instance_amount = formset_amount.save(commit=False) # Jos poistaa commit=False, se tallentaa 2 kertaa!!!!!!!!?????
             print('SAVED')
-            i = 0
-            for form, amount in zip(instance, instance_amount): # пройти по всем полям в инстанс, а не в formset
-            # for form, amount in instance, instance_amount:
-                # print(form.cleaned_data)
-                # ing = ingredient.save()
-                i = i+1
-                print('i = ', i)
+            for form, amount in zip(instance, instance_amount): # 2 sykliä 
                 print('form ', form)
                 print('amount', amount)
+                # Tallennetaan tietokantaan kaikki Ingredienti ja Amount kentat
                 ing_rec = Recipe_Ingredient(amount=amount, ingredient=form, recipe=Resepti_item) # ingredient=form INSTANCE ERROR
                 ing_rec.save()
-                # Recipe_Ingredient(amount=amount, recipe=Resepti_item).save()
                 # print(ing_rec)
-                # Se tekee 2 kerta cykle, meidän tarvii 1
-            
 
-
-
-        
         return redirect('add_resepti')
         
 
@@ -143,7 +117,7 @@ def search(request):
     if request.method == 'GET':
         print('search_form: ', request.GET.get('search_form'))
         request_form = request.GET.get('search_form')
-        items = Ingredient.objects.filter(ing_name__icontains=request_form)
+        items = Basic_ingredient.objects.filter(basicing_name__icontains=request_form)
         category_items = Category.objects.filter(cat_name__icontains=request_form)
         body_text_items = Recipe.objects.filter(body_text__icontains=request_form)
         headline_items = Recipe.objects.filter(headline__icontains=request_form)
@@ -151,25 +125,46 @@ def search(request):
             recipes = None
             print('recipes ', None)
         else:
-            recipes = Recipe.objects.filter(Q(ingredients__in=items) | Q(body_text__icontains=request_form) | Q(headline__icontains=request_form) | Q(categoryFK__in=category_items)).distinct()
+            recipes = Recipe.objects.filter(Q(basic_ingredient__in=items) | Q(body_text__icontains=request_form) | Q(headline__icontains=request_form) | Q(categoryFK__in=category_items)).distinct()
             print('recipes ', recipes)
     context = {
         'recipes': recipes,
     }
     return render(request, 'resepti_app/index.html', context)
 
+from django.forms.models import inlineformset_factory
 
-def edit_resepti(request, id):
+def edit_resepti(request, id): 
     data_item = Recipe.objects.get(id=id)
-
     form = RecipeForm(instance=data_item)
+
+    # Ingredient_amount_item = Recipe_Ingredient.objects.filter(recipe_id=id).first()
+    # form_amount = Recipe_IngredientForm(instance=Ingredient_amount_item)
+    
+    
+    Recipe_IngredientFormSet = modelformset_factory(Recipe_Ingredient, form=Recipe_IngredientForm)
+    formset = Recipe_IngredientFormSet(queryset=Recipe_Ingredient.objects.filter(recipe_id=id))
+    print('item ', formset.get_queryset()[0].ingredient)
+    # x = Recipe_Ingredient.objects.filter(recipe_id=id)
+    # Recipe_IngredientFormSet = inlineformset_factory(Ingredient, Recipe_Ingredient, fields=('ingredient',))
+    # formset = Recipe_IngredientFormSet(instance=x)
+    
+    print('formset ', formset)
+
+    # IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm)
+    # ingredient_formset = IngredientFormSet(queryset=Recipe_Ingredient.objects.filter(recipe_id=id))
+
+    # print(formset)
     if request.method == 'POST':
+        formset = Recipe_IngredientFormSet(request.POST)
         form = RecipeForm(request.POST, request.FILES, instance=data_item)
-        if form.is_valid():
+        if form.is_valid() and formset.is_valid:
+            formset.save()
             form.save()
             return redirect('/resepti/' + str(id))
     context = {
         'form': form,
+        'formset': formset
     }
     return render(request, 'resepti_app/edit_resepti.html', context)
     # return HttpResponse('successfully uploaded: ' + str(id))
