@@ -62,8 +62,9 @@
             {{ form.headline }}
         </div>
 
-        <div class="pb-3 border-bottom mb-4" id="formset_block">
+        <div id="formset_block">
             <div class="mb-2 " id="ing_amount_0"> <!--input-group нужно продублировать div целиком и не забыть, что мы используем input:last -->
+                
                 {% if formset  %}
                 {% for form_ingredient in formset %}
                     {{ form_ingredient.ing_name }}
@@ -75,9 +76,11 @@
                     {{ el.amount }}
                 {% endfor %}
                 {% endif %}
+                
             </div>
             
         </div>
+
         <div style="text-align: right;" id="button">
             <a href="#" onclick="return false;" id="add_field"><button type="button" class="btn btn-success mb-4 px-4">Lisää kenttä</button></a>
         </div>
@@ -99,7 +102,7 @@
             {{ form.categoryFK }}
         </div>
         <div class="pb-3">{{ form_category.cat_name }}</div>
-        <div class="d-grid gap-2">
+        <div class="d-grid">
         <button type="submit" class="btn btn-success mb-4 px-4">Lisää resepti</button>
         </div>
     </form>
