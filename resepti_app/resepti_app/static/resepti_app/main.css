@@ -122,16 +122,23 @@ body {
 /* --CARD-- */
 
 
+/* IDt joiden avulla saadaan "add_resepti.html" sivulla raaka-aine sekä määrä formit vierekkäin */
+.left {
+    float: left;
+    width: 49%;
+    margin-bottom: 0.6em;
+}
+
+.right {
+    float: right;
+    width: 49%;
+    margin-bottom: 0.6em;
+}
 
 
 
 
 
-
-
-/* .form-control {
-    width: 100%;
-} */
 
 
 
@@ -146,15 +153,5 @@ body {
     } */
       
 
-/* IDt joiden avulla saadaan "add_resepti.html" sivulla raaka-aine sekä määrä formit vierekkäin */
-#ingredient-form-left {
-    float: left;
-    width: 49%;
-    margin-bottom: 0.6em;
-}
 
-#ingredient-amount-form-right {
-    float: right;
-    width: 49%;
-    margin-bottom: 0.6em;
-}
+
