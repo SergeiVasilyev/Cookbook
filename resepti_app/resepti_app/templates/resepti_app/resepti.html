@@ -10,12 +10,14 @@
     <div class="row">
 
             <div class="d-inline-block d-flex justify-content-between my-5">
-                <h1>{{recipe.headline}}</h1>
+                <div>
+                    <h1>{{recipe.headline}}</h1>
+                    <p>{{recipe.categoryFK}}</p>
+                </div>
                 <a href="{% url 'edit_resepti' recipe.id %}">
                     <button type="submit" class="btn btn-success px-4 my-2">Muokkaa</button>
                 </a>
             </div>
-            <h4>{{recipe.categoryFK}}</h4>
 
         <img src="{{recipe.image.url}}" alt="kuva" class="pb-3 img_crop">
         <h4>Ohjeet</h4>
