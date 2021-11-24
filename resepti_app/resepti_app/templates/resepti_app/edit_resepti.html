@@ -30,10 +30,19 @@
             {{ form.headline }}
         </div>
 
-        <div class="pb-3 border-bottom mb-4" id="formset_block">
-            <div class="mb-2 " id="ing_amount_0"> <!--input-group нужно продублировать div целиком и не забыть, что мы используем input:last -->
-                {{ formset }}
+        <div class="pb-3 mb-4" id="formset_block">
+        {% for ingr_formset in ingr_formset %}
+            {{ ingr_formset.ing_name }}
+        {% endfor %}
+        {% for formset in formset %}
+            <div class="row">
+                <div class="col" id="ing_amount_0">
+                    <!-- {{ formset }} -->
+                    {{ formset.amount }}
+                    
+                </div>
             </div>
+        {% endfor %}
         </div>
 
         <!-- <div class="pb-3 border-bottom mb-4">{{ form.body_text|safe }}</div> -->

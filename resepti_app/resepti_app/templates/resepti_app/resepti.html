@@ -7,25 +7,35 @@
 
 {% block content %}
 <div class="content_warp_recipe">
-    <div class="row">
-
-            <div class="d-inline-block d-flex justify-content-between my-5">
-                <h1>{{recipe.headline}}</h1>
-
-                <!-- KORJATAAN VIELÄ!-->
-                <h2>{{recipe.categoryFK}}</h2>
-                <!-- KORJATAAN VIELÄ!-->
-
+    <div class="row mb-5">
+            <div class="d-inline-block d-flex justify-content-between mt-5 mb-2">
+                <div>
+                    <h1>{{recipe.headline}}</h1>
+                    <p>{{recipe.categoryFK}}</p>
+                </div>
                 <a href="{% url 'edit_resepti' recipe.id %}">
                     <button type="submit" class="btn btn-success px-4 my-2">Muokkaa</button>
                 </a>
             </div>
-
         <img src="{{recipe.image.url}}" alt="kuva" class="pb-3 img_crop">
-        <h4>Ohjeet</h4>
-        <span>
-            {{recipe.body_text|safe}}
-        </span>
+        <div class="my-4">
+        {% for ing_amount in recipe_ingredients %}
+            <div class="row">
+                <div class="col" style="text-align: right; font-weight: 600;">
+                    {{ ing_amount.amount }}
+                </div>
+                <div class="col">
+                    {{ ing_amount.ingredient }}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="mb-5">
+            <h4>Ohjeet</h4>
+            <span>
+                {{recipe.body_text|safe}}
+            </span>
+        </div>
     </div>
 </div>
 {% endblock %}

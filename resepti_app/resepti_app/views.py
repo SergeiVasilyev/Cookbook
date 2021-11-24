@@ -8,12 +8,15 @@ from django.core.files.storage import FileSystemStorage
 from .models import Recipe, Ingredient, Category, Basic_ingredient, Recipe_Ingredient
 from django.db.models import Q
 from django.forms import formset_factory, modelformset_factory
+from django.forms.models import inlineformset_factory
 
 
 def index (request):
     recipes = Recipe.objects.all()
+    
     context = {
         'recipes': recipes,
+        
     }  
     return render(request, 'resepti_app/index.html', context)
 
@@ -107,9 +110,12 @@ def success(request):
     return HttpResponse('successfully uploaded2')
 
 def resepti(request, idx):
+    recipe_ingredients = Recipe_Ingredient.objects.filter(recipe_id=idx)
+    print(recipe_ingredients)
     recipe = Recipe.objects.get(id=idx)
     context = {
         'recipe': recipe,
+        'recipe_ingredients': recipe_ingredients,
     }
     return render(request, 'resepti_app/resepti.html', context) 
 
@@ -132,7 +138,7 @@ def search(request):
     }
     return render(request, 'resepti_app/index.html', context)
 
-from django.forms.models import inlineformset_factory
+
 
 def edit_resepti(request, id): 
     data_item = Recipe.objects.get(id=id)
@@ -144,27 +150,52 @@ def edit_resepti(request, id):
     
     Recipe_IngredientFormSet = modelformset_factory(Recipe_Ingredient, form=Recipe_IngredientForm)
     formset = Recipe_IngredientFormSet(queryset=Recipe_Ingredient.objects.filter(recipe_id=id))
-    print('item ', formset.get_queryset()[0].ingredient)
-    # x = Recipe_Ingredient.objects.filter(recipe_id=id)
-    # Recipe_IngredientFormSet = inlineformset_factory(Ingredient, Recipe_Ingredient, fields=('ingredient',))
-    # formset = Recipe_IngredientFormSet(instance=x)
+    # print('item ', formset.get_queryset()[0].recipe_id)
+    i = 0
+    data = []
     
-    print('formset ', formset)
+    for fs in formset:
+        print(i)
+        print('item ', formset.get_queryset()[i].recipe_id)
+        x = formset.get_queryset()[i].ingredient_id
+        data.append(x)
+        # print(fs.fields['recipe'])
+        # print(fs.fields.values())
+        # print (fs)
+        i = i + 1
+        if i == 5:
+            break
+    print('data', data)
+
+    IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm)
+    ingr_formset = IngredientFormSet(queryset=Ingredient.objects.filter(id__range=[data[0], data[-1]]))
+
+
+    # print('item ', formset.get_queryset()[0].ingredient)
+    # x = Recipe_Ingredient.objects.get(ingredient_id=id) # Kysyy Tuomakselta fk_name='ingredient',
+    # # Recipe_IngredientFormSet = inlineformset_factory(Recipe, Recipe_Ingredient, Recipe_IngredientForm, can_delete=False, fields="__all__")
+    # Recipe_IngredientFormSet = inlineformset_factory(Recipe, Recipe_Ingredient, can_delete=False, fields="__all__")
+    # formset = Recipe_IngredientFormSet()
+    
+    # print('formset ', formset)
 
     # IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm)
     # ingredient_formset = IngredientFormSet(queryset=Recipe_Ingredient.objects.filter(recipe_id=id))
 
     # print(formset)
     if request.method == 'POST':
-        formset = Recipe_IngredientFormSet(request.POST)
+        formset = Recipe_IngredientFormSet(request.POST, instance=x)
         form = RecipeForm(request.POST, request.FILES, instance=data_item)
         if form.is_valid() and formset.is_valid:
             formset.save()
             form.save()
             return redirect('/resepti/' + str(id))
+    allaormsets = zip(formset, ingr_formset)
     context = {
         'form': form,
-        'formset': formset
+        'formset': formset,
+        'ingr_formset': ingr_formset,
+        'allaormsets': allaormsets,
     }
     return render(request, 'resepti_app/edit_resepti.html', context)
     # return HttpResponse('successfully uploaded: ' + str(id))

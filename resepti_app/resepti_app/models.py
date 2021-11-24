@@ -9,7 +9,8 @@ class Category(models.Model):
     cat_name = models.CharField(max_length=200)
     
     def __str__(self):
-        return f"Category: {self.id} | {self.cat_name}"
+        return self.cat_name
+        # return f"Category: {self.id} | {self.cat_name}"
     
 class Ingredient(models.Model):
     ing_name = models.CharField(max_length=200)
