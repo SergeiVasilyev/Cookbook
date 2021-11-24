@@ -55,8 +55,8 @@ class IngredientForm(ModelForm):
         fields = ['ing_name']
         widgets = {
             'ing_name': TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Lisää raaka-aine'
+                'class': 'form-control left',
+                'placeholder': 'Lisää raaka-aine',
             }),
 
         }
@@ -68,8 +68,8 @@ class Recipe_IngredientForm(ModelForm):
         fields = ['amount']
         widgets = {
             'amount': TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Lisää ainemäärä'
+                'class': 'form-control right',
+                'placeholder': 'Lisää ainemäärä',
             }),
         }
 

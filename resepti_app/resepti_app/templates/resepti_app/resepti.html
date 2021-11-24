@@ -11,6 +11,11 @@
 
             <div class="d-inline-block d-flex justify-content-between my-5">
                 <h1>{{recipe.headline}}</h1>
+
+                <!-- KORJATAAN VIELÄ!-->
+                <h2>{{recipe.categoryFK}}</h2>
+                <!-- KORJATAAN VIELÄ!-->
+
                 <a href="{% url 'edit_resepti' recipe.id %}">
                     <button type="submit" class="btn btn-success px-4 my-2">Muokkaa</button>
                 </a>
