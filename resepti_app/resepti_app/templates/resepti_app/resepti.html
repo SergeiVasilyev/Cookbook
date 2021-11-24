@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="content_warp_recipe">
-    <div class="row mb-5">
+    <div class="row mb-5" style="background-color: white;">
             <div class="d-inline-block d-flex justify-content-between mt-5 mb-2">
                 <div>
                     <h1>{{recipe.headline}}</h1>
@@ -18,20 +18,20 @@
                 </a>
             </div>
         <img src="{{recipe.image.url}}" alt="kuva" class="pb-3 img_crop">
-        <div class="my-4">
+        <div class="my-5">
         {% for ing_amount in recipe_ingredients %}
             <div class="row">
                 <div class="col" style="text-align: right; font-weight: 600;">
-                    {{ ing_amount.amount }}
+                    {{ ing_amount.ingredient }}
                 </div>
                 <div class="col">
-                    {{ ing_amount.ingredient }}
+                    {{ ing_amount.amount }}
                 </div>
             </div>
         {% endfor %}
         </div>
         <div class="mb-5">
-            <h4>Ohjeet</h4>
+            <h2>Ohjeet</h2>
             <span>
                 {{recipe.body_text|safe}}
             </span>

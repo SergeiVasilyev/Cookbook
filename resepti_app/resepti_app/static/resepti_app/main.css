@@ -1,5 +1,6 @@
 body {
-    font-family: "Poppins", sans-serif;
+    /* font-family: "Poppins", sans-serif; */
+    font-family: "Outfit";
     font-weight: 300;
     min-width: 360px;
     background: linear-gradient(0deg, rgba(255, 255, 239, 0.9), rgba(255, 255, 239, 0.90)), url('pics/patterni-konfeti.png');
