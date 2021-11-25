@@ -153,24 +153,26 @@ def edit_resepti(request, id):
     # print('item ', formset.get_queryset()[0].recipe_id)
     i = 0
     data = []
-    
+
+    length = len(formset)
+    print('length', length)
     for fs in formset:
-        print(i)
-        print('item ', formset.get_queryset()[i].recipe_id)
+        # print('ingredient ', formset.get_queryset()[i].ingredient)
+        # print('recipe_id ', formset.get_queryset()[i].recipe_id)
         x = formset.get_queryset()[i].ingredient_id
         data.append(x)
         # print(fs.fields['recipe'])
         # print(fs.fields.values())
         # print (fs)
-        i = i + 1
-        if i == 5:
+        i += 1
+        if i == length-1:
             break
     print('data', data)
 
     IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm)
     ingr_formset = IngredientFormSet(queryset=Ingredient.objects.filter(id__range=[data[0], data[-1]]))
 
-
+    # ------inlineformset_factory kautta ei toimi instance
     # print('item ', formset.get_queryset()[0].ingredient)
     # x = Recipe_Ingredient.objects.get(ingredient_id=id) # Kysyy Tuomakselta fk_name='ingredient',
     # # Recipe_IngredientFormSet = inlineformset_factory(Recipe, Recipe_Ingredient, Recipe_IngredientForm, can_delete=False, fields="__all__")
@@ -181,21 +183,25 @@ def edit_resepti(request, id):
 
     # IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm)
     # ingredient_formset = IngredientFormSet(queryset=Recipe_Ingredient.objects.filter(recipe_id=id))
-
     # print(formset)
+    # -----
+    
     if request.method == 'POST':
-        formset = Recipe_IngredientFormSet(request.POST, instance=x)
+        formset = Recipe_IngredientFormSet(request.POST)
+        ingr_formset = IngredientFormSet(request.POST)
         form = RecipeForm(request.POST, request.FILES, instance=data_item)
-        if form.is_valid() and formset.is_valid:
+        if form.is_valid() and formset.is_valid and ingr_formset.is_valid:
+            ingr_formset.save()
             formset.save()
             form.save()
             return redirect('/resepti/' + str(id))
-    allaormsets = zip(formset, ingr_formset)
+    allformsets = zip(ingr_formset, formset)
+    print('allaormsets', allformsets)
     context = {
         'form': form,
         'formset': formset,
         'ingr_formset': ingr_formset,
-        'allaormsets': allaormsets,
+        'allformsets': allformsets,
     }
     return render(request, 'resepti_app/edit_resepti.html', context)
     # return HttpResponse('successfully uploaded: ' + str(id))

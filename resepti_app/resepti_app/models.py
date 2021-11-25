@@ -15,7 +15,7 @@ class Category(models.Model):
 class Ingredient(models.Model):
     ing_name = models.CharField(max_length=200)
     class Meta:
-        ordering = ('ing_name',)
+        ordering = ('id',)
 
     def __str__(self):
         return self.ing_name

@@ -31,15 +31,11 @@
         </div>
 
         <div class="pb-3 mb-4" id="formset_block">
-        {% for ingr_formset in ingr_formset %}
-            {{ ingr_formset.ing_name }}
-        {% endfor %}
-        {% for formset in formset %}
+        {% for f1, f2 in allformsets %}
             <div class="row">
-                <div class="col" id="ing_amount_0">
-                    <!-- {{ formset }} -->
-                    {{ formset.amount }}
-                    
+                <div class="col">
+                    {{ f1.ing_name }}
+                    {{ f2.amount }}
                 </div>
             </div>
         {% endfor %}
@@ -63,7 +59,7 @@
         </div>
         <div class="pb-3">{{ form_category.cat_name }}</div>
         <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-success mb-4 px-4">Muokkaa reseptiä</button>
+        <button type="submit" class="btn btn-success mb-4 px-4 btn_bgcolor">Muokkaa reseptiä</button>
         </div>
     </form>
     </div>

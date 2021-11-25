@@ -12,11 +12,13 @@
         {% if recipes %}
         {% for el in recipes %}
             <div class="card mx-2 my-2">
-                <img src="{{el.image.url}}" class="card-img-top pt-2" alt="{{el.image}}">
+                <a href="{% url 'resepti' el.id %}">
+                    <img src="{{el.image.url}}" class="card-img-top pt-2" alt="{{el.image}}">
+                </a>
                 <div class="card-body">
                     <h5 class="card-title">{{el.headline}}</h5>
                     <p class="card-text">{{el.body_text|truncatechars:63|striptags|safe}}</p> <!--slice:":80"-->
-                    <a href="{% url 'resepti' el.id %}" class="btn btn-primary">Lue lisää</a>
+                    <a href="{% url 'resepti' el.id %}" class="btn btn-primary btn_bgcolor">Lue lisää</a>
                 </div>
             </div>
         {% endfor %}

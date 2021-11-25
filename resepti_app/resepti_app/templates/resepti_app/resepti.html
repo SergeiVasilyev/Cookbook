@@ -7,14 +7,14 @@
 
 {% block content %}
 <div class="content_warp_recipe">
-    <div class="row mb-5" style="background-color: white;">
+    <div class="row mb-5 px-5" style="background-color: white;">
             <div class="d-inline-block d-flex justify-content-between mt-5 mb-2">
                 <div>
                     <h1>{{recipe.headline}}</h1>
                     <p>{{recipe.categoryFK}}</p>
                 </div>
                 <a href="{% url 'edit_resepti' recipe.id %}">
-                    <button type="submit" class="btn btn-success px-4 my-2">Muokkaa</button>
+                    <button type="submit" class="btn btn-success px-4 my-2 btn_bgcolor">Muokkaa</button>
                 </a>
             </div>
         <img src="{{recipe.image.url}}" alt="kuva" class="pb-3 img_crop">

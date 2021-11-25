@@ -19,9 +19,11 @@ body {
     text-align: right;
 }
 
-.nav-item {
-    font-weight: bold;
+.navbar-light .navbar-nav .nav-link{
+    color:#424242;
+    font-weight: 600;
 }
+
 
 /* Add resepti */
 .content_warp{
@@ -136,8 +138,14 @@ body {
     margin-bottom: 0.6em;
 }
 
-
-
+.btn_bgcolor{
+    background-color:peru; 
+    border: peru;
+}
+.btn_bgcolor:hover{
+    background-color:#ca9968; 
+    border: #ca9968;
+}
 
 
 
