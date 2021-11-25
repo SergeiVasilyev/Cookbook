@@ -11,11 +11,17 @@
             <div class="d-inline-block d-flex justify-content-between mt-5 mb-2">
                 <div>
                     <h1>{{recipe.headline}}</h1>
-                    <p>{{recipe.categoryFK}}</p>
+                    <a class="cat_link" href="{% url 'search_category' recipe.categoryFK_id %}"><p>{{recipe.categoryFK}}</p></a>
                 </div>
-                <a href="{% url 'edit_resepti' recipe.id %}">
-                    <button type="submit" class="btn btn-success px-4 my-2 btn_bgcolor">Muokkaa</button>
-                </a>
+                <div>
+                    <a href="{% url 'poista_resepti' recipe.id %}" class="btn btn-danger px-4 my-2 mx-3" style="border: 0;">
+                        Poista
+                    </a>
+                    <a href="{% url 'edit_resepti' recipe.id %}" class="btn btn-success px-4 my-2 btn_bgcolor">
+                        Muokkaa
+                        <!-- <button type="submit" class="btn btn-success px-4 my-2 btn_bgcolor">Muokkaa</button> -->
+                    </a>
+                </div>
             </div>
         <img src="{{recipe.image.url}}" alt="kuva" class="pb-3 img_crop">
         <div class="my-5">

@@ -23,11 +23,13 @@ from resepti_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='home'),
-    path('resepti_app/', views.add_resepti, name='add_resepti'),
+    path('add_resepti/', views.add_resepti, name='add_resepti'),
     path('success', views.success, name = 'success'),
     path('resepti/<int:idx>/', views.resepti, name = 'resepti'),
     path('search', views.search, name = 'search'),
     #path("upload", views.upload, name="upload"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('edit_resepti/<int:id>/', views.edit_resepti, name = 'edit_resepti'),
+    path('poista_resepti/<int:idx>/', views.poista_resepti, name = 'poista_resepti'), 
+    path('search_category/<int:cat_id>/', views.search_category, name = 'search_category'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

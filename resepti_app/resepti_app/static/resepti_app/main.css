@@ -138,15 +138,20 @@ body {
     margin-bottom: 0.6em;
 }
 
-.btn_bgcolor{
-    background-color:peru; 
-    border: peru;
-}
-.btn_bgcolor:hover{
-    background-color:#ca9968; 
-    border: #ca9968;
+
+.btn_bgcolor, .btn_bgcolor:hover, .btn_bgcolor:active, .btn_bgcolor:active:focus{
+    background-color:#ca9968 !important;
+    border: #ca9968 !important;
+    box-shadow: none !important;
+    color: white !important;
 }
 
+.cat_link, .cat_link:hover, .cat_link:visited{
+    color:peru;
+    font-size: 1.3em;
+    /* font-weight: 500; */
+    text-decoration: none;
+}
 
 
 

@@ -1,3 +1,5 @@
+import os
+from django.conf import settings
 from django.http import response
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -83,7 +85,11 @@ def add_resepti(request):
                 ing_rec.save()
                 # print(ing_rec)
 
-        return redirect('add_resepti')
+        # Sivun indeksi etsiminen
+        item = Recipe.objects.latest('id')
+        print('Last item', item.id)
+        return redirect(f'/resepti/{item.id}')
+        # return redirect('add_resepti')
         
 
     form = RecipeForm()
@@ -138,7 +144,14 @@ def search(request):
     }
     return render(request, 'resepti_app/index.html', context)
 
-
+def search_category(request, cat_id):
+    if request.method == 'GET':
+        recipes = Recipe.objects.filter(categoryFK=cat_id)
+        print('items', recipes)
+    context = {
+        'recipes': recipes,
+    }
+    return render(request, 'resepti_app/index.html', context)
 
 def edit_resepti(request, id): 
     data_item = Recipe.objects.get(id=id)
@@ -185,7 +198,7 @@ def edit_resepti(request, id):
     # ingredient_formset = IngredientFormSet(queryset=Recipe_Ingredient.objects.filter(recipe_id=id))
     # print(formset)
     # -----
-    
+
     if request.method == 'POST':
         formset = Recipe_IngredientFormSet(request.POST)
         ingr_formset = IngredientFormSet(request.POST)
@@ -205,6 +218,23 @@ def edit_resepti(request, id):
     }
     return render(request, 'resepti_app/edit_resepti.html', context)
     # return HttpResponse('successfully uploaded: ' + str(id))
+
+
+def poista_resepti (request, idx):
+    item = Recipe.objects.get(id=idx)
+    print(item.image.path)
+    item.delete()
+    try:
+        os.remove(item.image.path)
+    except:
+        return redirect ('home')
+    return redirect ('home')
+
+
+# ---------------------------------------------------------------------
+
+
+
 
 
 
