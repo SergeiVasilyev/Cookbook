@@ -29,12 +29,29 @@
         <div class="pb-3 ">
             {{ form.headline }}
         </div>
+        
+        <!-- {% if formset  %}
+        {{ formset.management_form }}
+        <div class="pb-3 mb-4" id="formset_block">
+            {% for form in formset %}
+                <div class="row">
+                    <div class="col">
+                        {{ form.id }}
+                        {{ form.ing_name }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %} -->
 
         <div class="pb-3 mb-4" id="formset_block">
+        {{ formset.management_form }}
         {% for f1, f2 in allformsets %}
             <div class="row">
                 <div class="col">
+                    {{f1.id}}
                     {{ f1.ing_name }}
+                    {{f2.id}}
                     {{ f2.amount }}
                 </div>
             </div>
