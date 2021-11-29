@@ -30,7 +30,7 @@
             {{ form.headline }}
         </div>
         
-        <!-- {% if formset  %}
+        {% if formset  %}
         {{ formset.management_form }}
         <div class="pb-3 mb-4" id="formset_block">
             {% for form in formset %}
@@ -38,25 +38,29 @@
                     <div class="col">
                         {{ form.id }}
                         {{ form.ing_name }}
+                        {{ form.amount }}
                     </div>
                 </div>
             {% endfor %}
         </div>
-        {% endif %} -->
+        {% endif %}
 
+        <!--
         <div class="pb-3 mb-4" id="formset_block">
         {{ formset.management_form }}
-        {% for f1, f2 in allformsets %}
-            <div class="row">
-                <div class="col">
-                    {{f1.id}}
-                    {{ f1.ing_name }}
-                    {{f2.id}}
-                    {{ f2.amount }}
-                </div>
+        <div class="row">
+            <div class="col">
+                < ! - - {% for field in f1 %}
+                    {{field}}
+                {% endfor %} - - >
+
+                {{ formset.id }}
+                {{ formset.ing_name }}
+                {{ formset.amount }}
             </div>
-        {% endfor %}
         </div>
+        </div>
+    -->
 
         <!-- <div class="pb-3 border-bottom mb-4">{{ form.body_text|safe }}</div> -->
         <div class="pb-3 border-bottom mb-4">{{ form.body_text }}</div>

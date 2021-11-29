@@ -157,20 +157,17 @@ def search_category(request, cat_id):
 def edit_resepti2(request, id):
     data_item = Recipe.objects.get(id=id)
     form = RecipeForm(instance=data_item)
-
-    # IngredientFormSet = inlineformset_factory(Recipe, Recipe_Ingredient, can_delete=False, fields="__all__")
-    # formset = IngredientFormSet()
-
+    Recipe_IngredientFormSet = modelformset_factory(Recipe_Ingredient, form=Recipe_IngredientForm, extra=0)
     IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm, extra=0, fields=('ing_name',))
     
     if request.method == 'POST':
         print('REQUEST')
-        formset = IngredientFormSet(request.POST)
+        formset = IngredientFormSet(request.POST, prefix='ingredient')
         if formset.is_valid():
             print('SAVED')
             formset.save()
     else:
-        formset = IngredientFormSet(queryset=Ingredient.objects.filter(id__range=[75, 77]))
+        formset = IngredientFormSet(queryset=Ingredient.objects.filter(id__range=[75, 77]), prefix='ingredient')
     context = {
         'formset': formset,
         # 'form': form,
@@ -182,75 +179,26 @@ def edit_resepti(request, id):
     data_item = Recipe.objects.get(id=id)
     form = RecipeForm(instance=data_item)
 
-    # Ingredient_amount_item = Recipe_Ingredient.objects.filter(recipe_id=id).first()
-    # form_amount = Recipe_IngredientForm(instance=Ingredient_amount_item)
-    
-    
-    Recipe_IngredientFormSet = modelformset_factory(Recipe_Ingredient, form=Recipe_IngredientForm, extra=0)
-    
-
-    IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm, extra=0)
-    
-    
-    # ------inlineformset_factory kautta ei toimi instance
-    # print('item ', formset.get_queryset()[0].ingredient)
-    # x = Recipe_Ingredient.objects.get(ingredient_id=id) # Kysyy Tuomakselta fk_name='ingredient',
-    # # Recipe_IngredientFormSet = inlineformset_factory(Recipe, Recipe_Ingredient, Recipe_IngredientForm, can_delete=False, fields="__all__")
-    # Recipe_IngredientFormSet = inlineformset_factory(Recipe, Recipe_Ingredient, can_delete=False, fields="__all__")
-    # formset = Recipe_IngredientFormSet()
-    
-    # print('formset ', formset)
-
-    # IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm)
-    # ingredient_formset = IngredientFormSet(queryset=Recipe_Ingredient.objects.filter(recipe_id=id))
-    # print(formset)
-    # -----
-
+    Recipe_IngredientFormSet = inlineformset_factory(Recipe, Recipe_Ingredient, Recipe_IngredientForm, can_delete=False, fields="__all__", extra=0)
     if request.method == 'POST':
-        ingr_formset = IngredientFormSet(request.POST, prefix='ingredient')
-        formset = Recipe_IngredientFormSet(request.POST, prefix='recipe-ing')
+        #ingr_formset = IngredientFormSet(request.POST, prefix='ingredient')
         form = RecipeForm(request.POST, request.FILES, instance=data_item)
-        if form.is_valid() and formset.is_valid and ingr_formset.is_valid:
+        formset = Recipe_IngredientFormSet(request.POST, prefix='recipe-ing', instance=data_item)
+        if form.is_valid() and formset.is_valid: # and ingr_formset.is_valid:
             print('FORM is VALID')
-            print('ingredient ', ingr_formset.get_queryset()[int(request.POST.get("ingredient-0-id"))].id)
-            print('amount ', ingr_formset.get_queryset()[int(request.POST.get("recipe-ing-0-id"))].id)
-            ingr_formset.save()    
-            # formset.save()
             form.save()
-            
-            print('SAVED EDITING', request.POST.get("ingredient-0-ing_name"))
+            formset.save()
+            #print('SAVED EDITING', request.POST.get("ingredient-0-ing_name"))
             print(list(request.POST.items()))
             return redirect('/resepti/' + str(id))
     else:
-        formset = Recipe_IngredientFormSet(queryset=Recipe_Ingredient.objects.filter(recipe_id=id), prefix='recipe-ing')
-        # print('item ', formset.get_queryset()[0].recipe_id)
-        i = 0
-        data = []
-        length = len(formset)
-        print('length', length)
-        for fs in formset:
-            # print('ingredient ', formset.get_queryset()[i].ingredient)
-            # print('recipe_id ', formset.get_queryset()[i].recipe_id)
-            x = formset.get_queryset()[i].ingredient_id
-            data.append(x)
-            # print(fs.fields['recipe'])
-            # print(fs.fields.values())
-            # print (fs)
-            i += 1
-            if i == length: #-1
-                break
-        print('data', data)
-        ingr_formset = IngredientFormSet(queryset=Ingredient.objects.filter(id__range=[data[0], data[-1]]), prefix='ingredient')
+        formset = Recipe_IngredientFormSet(instance=data_item, prefix='recipe-ing')
 
-    allformsets = zip(ingr_formset, formset)
     context = {
         'form': form,
         'formset': formset,
-        'ingr_formset': ingr_formset,
-        'allformsets': allformsets,
     }
     return render(request, 'resepti_app/edit_resepti.html', context)
-    # return HttpResponse('successfully uploaded: ' + str(id))
 
 
 def poista_resepti (request, idx):
