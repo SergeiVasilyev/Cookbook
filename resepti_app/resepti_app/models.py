@@ -13,9 +13,9 @@ class Category(models.Model):
         # return f"Category: {self.id} | {self.cat_name}"
     
 class Ingredient(models.Model):
-    ing_name = models.CharField(max_length=200)
+    ing_name = models.CharField(max_length=200, unique=True)
     class Meta:
-        ordering = ('id',)
+        ordering = ('ing_name',)
 
     def __str__(self):
         return self.ing_name
@@ -40,11 +40,22 @@ class Recipe(models.Model):
 
     def __str__(self):
         return f"ReseptiList: {self.id} | {self.headline}"
-    
+
+
 class Recipe_Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=True, null=True)
+    ing_name = models.CharField(max_length=200)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=True, null=True)
     amount = models.CharField(max_length=50)
+
+    class Meta:
+        ordering = ('id',)
+
+    def save(self, *args, **kwargs):
+        if self.ing_name and not self.ingredient:
+            (ingredient, _created) = Ingredient.objects.get_or_create(ing_name=self.ing_name)
+            self.ingredient = ingredient
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.amount
