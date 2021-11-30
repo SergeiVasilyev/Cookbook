@@ -77,12 +77,21 @@ WSGI_APPLICATION = 'resepti_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'HOST': 'localhost',
+         'USER': 'resepti_app',
+         'PASSWORD': 'resepti',
+         'NAME': 'resepti_db',
+     }
+ }
 
 
 # Password validation
@@ -139,6 +148,9 @@ CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 CKEDITOR_CONFIGS = {
     'default': {
         # 'skin': 'office2013',
+        'toolbar': 'YourCustomToolbarConfig',
+        'width': '100%',
+        'tabSpaces': 4,
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],
@@ -153,15 +165,16 @@ CKEDITOR_CONFIGS = {
             {'name': 'clipboard', 'items': ['Undo', 'Redo']},
             
         ],
-        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
-        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
-        # 'height': 291,
+    },
+    'special': {
+        'toolbar': 'Special',  # put selected toolbar config here
+        'toolbar_Special': [
+            ['Bold', 'Italic']
+        ],
+        'extraPlugins': ','.join(['placeholder',]),
+        'placeholder': 'blabla',
         'width': '100%',
-        # 'filebrowserWindowHeight': 725,
-        # 'filebrowserWindowWidth': 940,
-        # 'toolbarCanCollapse': True,
-        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
+        'height': '20%',
         'tabSpaces': 4,
-
     }
 }

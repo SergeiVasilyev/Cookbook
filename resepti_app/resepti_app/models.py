@@ -21,6 +21,7 @@ class Ingredient(models.Model):
     
 class Recipe(models.Model):
     headline = models.CharField(max_length=300)
+    ingredient_quantity = RichTextField(blank=True, null=True, config_name='special')
     body_text = RichTextField(blank=True, null=True)
     # body_text = models.CharField(max_length=1000)
     image = models.ImageField(upload_to='images/')
