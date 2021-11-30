@@ -3,7 +3,8 @@
         <div class="col">
             <div class="search">
                 <form action="{% url 'search' %}" method="get">
-                <input name="search_form" type="text" class="form-control" placeholder="Etsi reseptejä..."> 
+                <input name="search_form" type="text" class="form-control" placeholder="Etsi reseptejä..." 
+                    value="{% if not request.path == '/' %}{% for el in recipes %}{% if forloop.first %}{{el.categoryFK}}{% endif %}{% endfor %}{% endif %}">
                 <!-- <a href="{% url 'search' %}"> -->
                     <button class="btn btn-primary">
                         <i class="bi bi-search"></i>

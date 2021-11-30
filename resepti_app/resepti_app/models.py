@@ -21,7 +21,7 @@ class Ingredient(models.Model):
         return self.ing_name
 
 class Basic_ingredient(models.Model):
-    basicing_name = models.CharField(max_length=200)
+    basicing_name = models.CharField(max_length=200, blank=True, null=True)
     class Meta:
         ordering = ('basicing_name',)
 
@@ -36,7 +36,7 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to='images/')
     # slug = AutoSlugField(populate_from='headline')
     categoryFK = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True) #SET_DEFAULT , to_field='name'
-    basic_ingredient = models.ManyToManyField(Basic_ingredient, related_name='recipes') # recipe_set
+    basic_ingredient = models.ManyToManyField(Basic_ingredient, related_name='recipes', blank=True) # recipe_set
 
     def __str__(self):
         return f"ReseptiList: {self.id} | {self.headline}"

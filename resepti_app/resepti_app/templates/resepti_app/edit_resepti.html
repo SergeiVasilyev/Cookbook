@@ -9,7 +9,7 @@
     $(document).ready(function() {
         //https://github.com/Neolot/jQuery.AutoColumnList
         //https://neolot.com/narabotki/autocolumnlist-jquery-plugin-dlya-razdeleniya-spiskov-na-kolonki
-        $('#id_ingredients').autocolumnlist({columns: 10});
+        $('#id_basic_ingredient').autocolumnlist({columns: 10});
         $('.check_warp').find("ul").addClass('list-group')
         $('.check_warp').find("li").addClass('list-group-item ')
         $('.check_warp').find("input").addClass('form-check-input me-1')
@@ -45,24 +45,6 @@
         </div>
         {% endif %}
 
-        <!--
-        <div class="pb-3 mb-4" id="formset_block">
-        {{ formset.management_form }}
-        <div class="row">
-            <div class="col">
-                < ! - - {% for field in f1 %}
-                    {{field}}
-                {% endfor %} - - >
-
-                {{ formset.id }}
-                {{ formset.ing_name }}
-                {{ formset.amount }}
-            </div>
-        </div>
-        </div>
-    -->
-
-        <!-- <div class="pb-3 border-bottom mb-4">{{ form.body_text|safe }}</div> -->
         <div class="pb-3 border-bottom mb-4">{{ form.body_text }}</div>
         <div class="pb-3 border-bottom mb-4">
             <p class="form-headline d-flex justify-content-end">Lisää kuva</p>

@@ -61,6 +61,7 @@ def add_resepti(request):
         else:
             category = None
         
+        
         if form.is_valid():
             if category:
                 Resepti_item = form.save(commit=False)
@@ -81,7 +82,7 @@ def add_resepti(request):
                 print('form ', form)
                 print('amount', amount)
                 # Tallennetaan tietokantaan kaikki Ingredienti ja Amount kentat
-                ing_rec = Recipe_Ingredient(amount=amount, ingredient=form, recipe=Resepti_item) # ingredient=form INSTANCE ERROR
+                ing_rec = Recipe_Ingredient(amount=amount, ingredient=form, recipe=Resepti_item, ing_name=form) # ingredient=form INSTANCE ERROR
                 ing_rec.save()
                 # print(ing_rec)
 
@@ -201,8 +202,15 @@ def edit_resepti(request, id):
     return render(request, 'resepti_app/edit_resepti.html', context)
 
 
-def poista_resepti (request, idx):
+def poista_resepti (request, idx): # Добавить удаление ингредиентов!
     item = Recipe.objects.get(id=idx)
+
+    recipe_ingredient_items = Recipe_Ingredient.objects.filter(recipe=item)
+    for recipe_ingredient_item in recipe_ingredient_items:
+        ingredient_item = Ingredient.objects.filter(id=recipe_ingredient_item.ingredient_id)
+        ingredient_item.delete()
+        print('ingredient_item ', ingredient_item)
+
     print(item.image.path)
     item.delete()
     try:
