@@ -11,6 +11,7 @@ from .models import Recipe, Ingredient, Category, Basic_ingredient, Recipe_Ingre
 from django.db.models import Q
 from django.forms import formset_factory, modelformset_factory
 from django.forms.models import inlineformset_factory
+import re
 
 
 def index (request):
@@ -149,8 +150,17 @@ def search_category(request, cat_id):
     if request.method == 'GET':
         recipes = Recipe.objects.filter(categoryFK=cat_id)
         print('items', recipes)
+
+        # Tarkistetaan url path, jos url /search_category/\d+/ palautetaan True search sivuun, ja laitetaan kategoria search kenttään
+        url_ex = "^/search_category/\d+/$"
+        m = re.match(url_ex, request.path)
+        print('match ', m)
+        url = False
+        if m:
+            url = True
     context = {
         'recipes': recipes,
+        'url': url,
     }
     return render(request, 'resepti_app/index.html', context)
 
