@@ -10,7 +10,6 @@ class Category(models.Model):
     
     def __str__(self):
         return self.cat_name
-        # return f"Category: {self.id} | {self.cat_name}"
     
 class Ingredient(models.Model):
     ing_name = models.CharField(max_length=200, unique=True)
