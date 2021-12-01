@@ -7,23 +7,41 @@
 
 {% block content %}
 <div class="content_warp_recipe">
-    <div class="row">
-
-            <div class="d-inline-block d-flex justify-content-between my-5">
+    <div class="row mb-5 px-5" style="background-color: white;">
+            <div class="d-inline-block d-flex justify-content-between mt-5 mb-2">
                 <div>
                     <h1>{{recipe.headline}}</h1>
-                    <p>{{recipe.categoryFK}}</p>
+                    <a class="cat_link" href="{% url 'search_category' recipe.categoryFK_id %}"><p>{{recipe.categoryFK}}</p></a>
                 </div>
-                <a href="{% url 'edit_resepti' recipe.id %}">
-                    <button type="submit" class="btn btn-success px-4 my-2">Muokkaa</button>
-                </a>
+                <div>
+                    <a href="{% url 'poista_resepti' recipe.id %}" class="btn btn-danger px-4 my-2 mx-3" style="border: 0;">
+                        Poista
+                    </a>
+                    <a href="{% url 'edit_resepti' recipe.id %}" class="btn btn-success px-4 my-2 btn_bgcolor">
+                        Muokkaa
+                        <!-- <button type="submit" class="btn btn-success px-4 my-2 btn_bgcolor">Muokkaa</button> -->
+                    </a>
+                </div>
             </div>
-
         <img src="{{recipe.image.url}}" alt="kuva" class="pb-3 img_crop">
-        <h4>Ohjeet</h4>
-        <span>
-            {{recipe.body_text|safe}}
-        </span>
+        <div class="my-5">
+        {% for ing_amount in recipe_ingredients %}
+            <div class="row">
+                <div class="col" style="text-align: right; font-weight: 600;">
+                    {{ ing_amount.ingredient }}
+                </div>
+                <div class="col">
+                    {{ ing_amount.amount }}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="mb-5">
+            <h2>Ohjeet</h2>
+            <span>
+                {{recipe.body_text|safe}}
+            </span>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -1,5 +1,6 @@
 body {
-    font-family: "Poppins", sans-serif;
+    /* font-family: "Poppins", sans-serif; */
+    font-family: "Outfit";
     font-weight: 300;
     min-width: 360px;
     background: linear-gradient(0deg, rgba(255, 255, 239, 0.9), rgba(255, 255, 239, 0.90)), url('pics/patterni-konfeti.png');
@@ -18,9 +19,11 @@ body {
     text-align: right;
 }
 
-.nav-item {
-    font-weight: bold;
+.navbar-light .navbar-nav .nav-link{
+    color:#424242;
+    font-weight: 600;
 }
+
 
 /* Add resepti */
 .content_warp{
@@ -37,7 +40,7 @@ body {
     /* border: 1px red solid; */
 }
 
-#id_ingredients{
+#id_basic_ingredient{
     /* display: flex;
     flex-direction: row; */
     display: grid;
@@ -122,16 +125,34 @@ body {
 /* --CARD-- */
 
 
+/* IDt joiden avulla saadaan "add_resepti.html" sivulla raaka-aine sekä määrä formit vierekkäin */
+.left {
+    float: left;
+    width: 49%;
+    margin-bottom: 0.6em;
+}
+
+.right {
+    float: right;
+    width: 49%;
+    margin-bottom: 0.6em;
+}
 
 
+.btn_bgcolor, .btn_bgcolor:hover, .btn_bgcolor:active, .btn_bgcolor:active:focus{
+    background-color:#ca9968 !important;
+    border: #ca9968 !important;
+    box-shadow: none !important;
+    color: white !important;
+}
 
+.cat_link, .cat_link:hover, .cat_link:visited{
+    color:peru;
+    font-size: 1.3em;
+    /* font-weight: 500; */
+    text-decoration: none;
+}
 
-
-
-
-/* .form-control {
-    width: 100%;
-} */
 
 
 
@@ -145,3 +166,6 @@ body {
     }
     } */
       
+
+
+
