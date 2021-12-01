@@ -19,29 +19,8 @@ def index (request):
     
     context = {
         'recipes': recipes,
-        
     }  
     return render(request, 'resepti_app/index.html', context)
-
-def add_resepti2(request): # Testi funktio: miten formset factory toimii
-    IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm, extra=1) #modelformset_factory
-    if request.method == 'POST':
-        print('request.POST ', request.POST)
-        formset = IngredientFormSet(request.POST)
-        print(formset.cleaned_data)
-        if formset.is_valid():
-            formset.save()
-            print('SAVED')
-            for form in formset:
-                print(form.cleaned_data)
-            return redirect('add_resepti')
-    else:
-        formset = IngredientFormSet(request.POST or None, queryset=Ingredient.objects.none())
-        context = {
-            'formset': formset,
-        }
-    return render(request, 'resepti_app/add_resepti.html', context)
-
 
 
 def add_resepti(request):
@@ -62,7 +41,6 @@ def add_resepti(request):
         else:
             category = None
         
-        
         if form.is_valid():
             if category:
                 Resepti_item = form.save(commit=False)
@@ -74,7 +52,6 @@ def add_resepti(request):
                 Resepti_item = form.save()
             
         if formset.is_valid() and formset_amount.is_valid():
-            # Нужно чтобы далее использовать как инстнас для записи в поле ingredient
             instance = formset.save() # Tarvitsee jos me halutaan tallentaa Recipe_Ingredientiin
             # Если не использовать commit=False записывает в базу данных 2 раза
             instance_amount = formset_amount.save(commit=False) # Jos poistaa commit=False, se tallentaa 2 kertaa!!!!!!!!?????
@@ -91,8 +68,6 @@ def add_resepti(request):
         item = Recipe.objects.latest('id')
         print('Last item', item.id)
         return redirect(f'/resepti/{item.id}')
-        # return redirect('add_resepti')
-        
 
     form = RecipeForm()
     form_basic_ingrediet = Basic_ingredientForm()
@@ -165,26 +140,6 @@ def search_category(request, cat_id):
     return render(request, 'resepti_app/index.html', context)
 
 
-def edit_resepti2(request, id):
-    data_item = Recipe.objects.get(id=id)
-    form = RecipeForm(instance=data_item)
-    Recipe_IngredientFormSet = modelformset_factory(Recipe_Ingredient, form=Recipe_IngredientForm, extra=0)
-    IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm, extra=0, fields=('ing_name',))
-    
-    if request.method == 'POST':
-        print('REQUEST')
-        formset = IngredientFormSet(request.POST, prefix='ingredient')
-        if formset.is_valid():
-            print('SAVED')
-            formset.save()
-    else:
-        formset = IngredientFormSet(queryset=Ingredient.objects.filter(id__range=[75, 77]), prefix='ingredient')
-    context = {
-        'formset': formset,
-        # 'form': form,
-    }
-    return render(request, 'resepti_app/edit_resepti.html', context)
-
 
 def edit_resepti(request, id): 
     data_item = Recipe.objects.get(id=id)
@@ -192,14 +147,13 @@ def edit_resepti(request, id):
 
     Recipe_IngredientFormSet = inlineformset_factory(Recipe, Recipe_Ingredient, Recipe_IngredientForm, can_delete=False, fields="__all__", extra=0)
     if request.method == 'POST':
-        #ingr_formset = IngredientFormSet(request.POST, prefix='ingredient')
         form = RecipeForm(request.POST, request.FILES, instance=data_item)
         formset = Recipe_IngredientFormSet(request.POST, prefix='recipe-ing', instance=data_item)
-        if form.is_valid() and formset.is_valid: # and ingr_formset.is_valid:
+        if form.is_valid() and formset.is_valid:
             print('FORM is VALID')
             form.save()
             formset.save()
-            #print('SAVED EDITING', request.POST.get("ingredient-0-ing_name"))
+            # print('SAVED EDITING', request.POST.get("ingredient-0-ing_name"))
             print(list(request.POST.items()))
             return redirect('/resepti/' + str(id))
     else:
@@ -212,7 +166,7 @@ def edit_resepti(request, id):
     return render(request, 'resepti_app/edit_resepti.html', context)
 
 
-def poista_resepti (request, idx): # Добавить удаление ингредиентов!
+def poista_resepti (request, idx):
     item = Recipe.objects.get(id=idx)
 
     recipe_ingredient_items = Recipe_Ingredient.objects.filter(recipe=item)
@@ -228,6 +182,20 @@ def poista_resepti (request, idx): # Добавить удаление ингр�
     except:
         return redirect ('home')
     return redirect ('home')
+
+def page404(request):
+    return render(request, 'resepti_app/404.html')
+
+
+
+
+
+# def page_not_found_view(request, exception):
+#     return render(request, '404.html', status=404)
+
+
+
+
 
 
 # ---------------------------------------------------------------------

@@ -27,9 +27,9 @@ urlpatterns = [
     path('success', views.success, name = 'success'),
     path('resepti/<int:idx>/', views.resepti, name = 'resepti'),
     path('search', views.search, name = 'search'),
-    #path("upload", views.upload, name="upload"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('edit_resepti/<int:id>/', views.edit_resepti, name = 'edit_resepti'),
     path('poista_resepti/<int:idx>/', views.poista_resepti, name = 'poista_resepti'), 
     path('search_category/<int:cat_id>/', views.search_category, name = 'search_category'),
+    path('page404', views.page404, name = 'page404'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
