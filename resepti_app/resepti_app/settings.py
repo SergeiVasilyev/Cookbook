@@ -159,7 +159,7 @@ CKEDITOR_CONFIGS = {
             {'name': 'insert',
                 'items': ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar',]},
             {'name': 'links', 'items': ['Link', 'Unlink',]},
-            {'name': 'clipboard', 'items': ['Undo', 'Redo']},
+            {'name': 'clipboard', 'items': ['Undo', 'Redo', 'Bold', 'Italic']},
             
         ],
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here

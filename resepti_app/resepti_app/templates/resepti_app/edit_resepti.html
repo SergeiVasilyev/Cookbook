@@ -29,7 +29,6 @@
         <div class="pb-3 ">
             {{ form.headline }}
         </div>
-        
         {% if formset  %}
         {{ formset.management_form }}
         <div class="pb-3 mb-4" id="formset_block">
@@ -44,25 +43,22 @@
             {% endfor %}
         </div>
         {% endif %}
-
         <div class="pb-3 border-bottom mb-4">{{ form.body_text }}</div>
         <div class="pb-3 border-bottom mb-4">
             <p class="form-headline d-flex justify-content-end">Lisää kuva</p>
             {{ form.image }}
         </div>
-        
         <div class="check_warp pb-3 border-bottom mb-4">
             <p class="form-headline d-flex justify-content-end">Valitse päärakaa-aineet</p>
             <div style="display: block;">{{ form.basic_ingredient }}</div>
         </div>
-        
         <div class="pb-3">
             <p class="form-headline d-flex justify-content-end">Valitse tai kirjoita ruokalaji</p>
             {{ form.categoryFK }}
         </div>
         <div class="pb-3">{{ form_category.cat_name }}</div>
         <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-success mb-4 px-4 btn_bgcolor">Muokkaa reseptiä</button>
+            <button type="submit" class="btn btn-success mb-4 px-4 btn_bgcolor">Muokkaa reseptiä</button>
         </div>
     </form>
     </div>

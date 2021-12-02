@@ -29,7 +29,6 @@ def add_resepti(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
         cat = CategoryForm(request.POST)
-        ingredient = IngredientForm(request.POST)
         amount = Recipe_IngredientForm(request.POST)
         print('request.POST ', request.POST)
         formset = IngredientFormSet(request.POST)
@@ -53,10 +52,9 @@ def add_resepti(request):
             
         if formset.is_valid() and formset_amount.is_valid():
             instance = formset.save() # Tarvitsee jos me halutaan tallentaa Recipe_Ingredientiin
-            # Если не использовать commit=False записывает в базу данных 2 раза
             instance_amount = formset_amount.save(commit=False) # Jos poistaa commit=False, se tallentaa 2 kertaa!!!!!!!!?????
             print('SAVED')
-            for form, amount in zip(instance, instance_amount): # 2 sykliä 
+            for form, amount in zip(instance, instance_amount):
                 print('form ', form)
                 print('amount', amount)
                 # Tallennetaan tietokantaan kaikki Ingredienti ja Amount kentat
@@ -84,8 +82,7 @@ def add_resepti(request):
         'form_amount': form_amount,
         'formset': formset,
         'formset_amount': formset_amount,
-    }
-        
+    } 
     return render(request, 'resepti_app/add_resepti.html', context)
   
   
@@ -126,7 +123,7 @@ def search_category(request, cat_id):
         recipes = Recipe.objects.filter(categoryFK=cat_id)
         print('items', recipes)
 
-        # Tarkistetaan url path, jos url /search_category/\d+/ palautetaan True search sivuun, ja laitetaan kategoria search kenttään
+        # Tarkistetaan url path, jos url /search_category/<RESEPTIN INDEX>/ palautetaan True search sivuun, ja laitetaan kategoria search kenttään
         url_ex = "^/search_category/\d+/$"
         m = re.match(url_ex, request.path)
         print('match ', m)
@@ -189,20 +186,7 @@ def page404(request):
 
 
 
-
-# def page_not_found_view(request, exception):
-#     return render(request, '404.html', status=404)
-
-
-
-
-
-
 # ---------------------------------------------------------------------
-
-
-
-
 
 
 # def add_resepti(request):

@@ -15,25 +15,28 @@
         $('.check_warp').find("li").addClass('list-group-item')
         $('.check_warp').find("input").addClass('form-check-input me-1')
 
+        // Lisääminen raaka-aine ja ainemäärä kentätät (INPUTS) sivulle, kun painamme Lisää kentta nappi
         $('#add_field').click(function(){
             console.log('click')
             var r = /\d+/;
 
             // yrittämme löyttää meidän DIV ing_amount_1, jossa on inputia
-            var last_div_id = $('#formset_block div:last').attr('id')
-            counter2 = parseInt(last_div_id.match(r), 10) + 1 // Etsimme tässä numero, 10 se on lukujärjestelmä ja suurentaa 1
-            console.log('DIV numero ' + counter2)
-            var $last_div = $('#formset_block div:last').clone() // tehdään div clone
+            var last_div_id = $('#formset_block div:last').attr('id') //Otetaan viimeinen div:n id
+            counter2 = parseInt(last_div_id.match(r), 10) + 1 // Etsimme id:ssa numero, 10 se on lukujärjestelmä ja suurentaa 1
+            console.log('DIV numero ' + counter2) // Voimme katsoa Div:n numero condolissa
+            var $last_div = $('#formset_block div:last').clone() // tehdään viimeinen div:n clone
             $('#formset_block div:last').after($last_div) // lisäämme uuden div vanhan div:n jälkeen
-            var div_id = "ing_amount_" + counter2
-            $('#formset_block div:last').attr('id', div_id)
+            var div_id = "ing_amount_" + counter2 // Generoidaan Div:n id counterin avulla
+            $('#formset_block div:last').attr('id', div_id) //Laitetaan generoitun div:n nimi viimeseen diviin
             // Nyt meidän pitää laitaa uusi INPUT DIV:n sisään - JS kopioi DIV ja kaikki sisältö automaatisesti
-            // Meidän pitää vain vaihtaa name INPUT:ssa
-            div_counter = counter2 - 1 
-            console.log('INPUT ' + $('#formset_block div:last #id_form-'+div_counter+'-ing_name').attr("type"))
-            var form_name = 'form-' + counter2 + '-ing_name'
+            // Meidän pitää vain vaihtaa name-kentta ja id-kentta INPUT:ssa
+            
+            console.log('INPUT ' + $('#formset_block div:last #id_form-'+div_counter+'-ing_name').attr("name"))
+            var form_name = 'form-' + counter2 + '-ing_name' // Generoidaan uuden nimen ja id
             var form_id = 'id_form-' + counter2 + '-ing_name'
-            $('#formset_block div:last #id_form-'+div_counter+'-ing_name').attr("name", form_name) // Etsitaan edellinen INPUT siksi counter:sta vähennetaan 1, ja laitetaan uusi <name>
+            // Etsitaan edellinen INPUT siksi counter:sta vähennetaan 1, ja laitetaan uuden <name>
+            div_counter = counter2 - 1
+            $('#formset_block div:last #id_form-'+div_counter+'-ing_name').attr("name", form_name) 
             $('#formset_block div:last #id_form-'+div_counter+'-ing_name').attr("id", form_id) // sama laitetaan uusi <id>
 
             // Nyt tehdään sama asia kuin INPUT:ssa
@@ -41,12 +44,10 @@
             var amount_form_id = 'id_form-' + counter2 + '-amount'
             $('#formset_block div:last #id_form-'+div_counter+'-amount').attr("name", amount_form_name)
             $('#formset_block div:last #id_form-'+div_counter+'-amount').attr("id", amount_form_id)
-
-            $('#id_form-TOTAL_FORMS').attr('value', counter2+1)
-
-        })
-    
-        
+            
+            // Lisätään yksi djanogon from laskurilla, silla tavalla Django tietää kuinka paljon meilla kentat
+            $('#id_form-TOTAL_FORMS').attr('value', counter2+1) 
+        })        
     })
 </script>
 {% endblock %}
@@ -63,8 +64,7 @@
         </div>
 
         <div id="formset_block">
-            <div class="mb-2 " id="ing_amount_0"> <!--input-group нужно продублировать div целиком и не забыть, что мы используем input:last -->
-                
+            <div class="mb-2 " id="ing_amount_0">
                 {% if formset  %}
                 {% for form_ingredient in formset %}
                     {{ form_ingredient.ing_name }}
@@ -76,15 +76,12 @@
                     {{ el.amount }}
                 {% endfor %}
                 {% endif %}
-                
             </div>
-            
         </div>
 
         <div style="text-align: right;" id="button">
             <a href="#" onclick="return false;" id="add_field"><button type="button" class="btn btn-success mb-4 px-4 btn_bgcolor">Lisää kenttä</button></a>
         </div>
-
 
         <div class="pb-3 border-bottom mb-4">{{ form.body_text }}</div>
         <div class="pb-3 border-bottom mb-4">
@@ -103,7 +100,7 @@
         </div>
         <div class="pb-3">{{ form_category.cat_name }}</div>
         <div class="d-grid">
-        <button type="submit" class="btn btn-success mb-4 px-4 btn_bgcolor">Lisää resepti</button>
+            <button type="submit" class="btn btn-success mb-4 px-4 btn_bgcolor">Lisää resepti</button>
         </div>
     </form>
     </div>
@@ -123,7 +120,6 @@
     //         console.log(col)
     //         $('#id_ingredients').autocolumnlist({columns: col})
     //     }).resize()
-        
     // })
 </script>
 {% endblock %}

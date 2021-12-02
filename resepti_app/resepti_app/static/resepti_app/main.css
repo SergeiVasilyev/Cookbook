@@ -1,11 +1,9 @@
 body {
-    /* font-family: "Poppins", sans-serif; */
     font-family: "Outfit";
     font-weight: 300;
     min-width: 360px;
     background: linear-gradient(0deg, rgba(255, 255, 239, 0.9), rgba(255, 255, 239, 0.90)), url('pics/patterni-konfeti.png');
 }
-
 
 
 /* NAVBAR */
@@ -14,62 +12,66 @@ body {
     height: 50px;
     /* border: 1px red solid; */
 }
+    .navbar-nav{
+        text-align: right;
+    }
 
-.navbar-nav{
-    text-align: right;
-}
-
-.navbar-light .navbar-nav .nav-link{
-    color:#424242;
-    font-weight: 600;
-}
+    .navbar-light .navbar-nav .nav-link{
+        color:#424242;
+        font-weight: 600;
+    }
 
 
-/* Add resepti */
+/* Lisää resepti */
 .content_warp{
     background-color: white;
     max-width: 800px;
     padding: 0;
 }
-.content_warp > .row{
-    padding: 0 50px;
-}
+    .content_warp > .row{
+        padding: 0 50px;
+    }
 
-.form-headline{
-    font-size: 1.2em;
-    /* border: 1px red solid; */
-}
+    .form-headline{
+        font-size: 1.2em;
+        /* border: 1px red solid; */
+    }
 
-#id_basic_ingredient{
-    /* display: flex;
-    flex-direction: row; */
-    display: grid;
-    /* grid-template-columns: 1fr 1fr 1fr; */
-    grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
-    grid-template-rows: auto;
-    gap: 15px 0;
-    /* column-gap: 10px; */
-    justify-items: center;
-}
+    #id_basic_ingredient{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+        grid-template-rows: auto;
+        gap: 15px 0;
+        /* column-gap: 10px; */
+        justify-items: center;
+    }
 
-.list-group-item {
-    background-color: inherit;
-    /* border: 1px solid rgba(0,0,0,.125); */
-    border: 0px solid rgba(0,0,0,.125);
-    min-width: 150px;
-    max-width: 180px;
-}
+    .list-group-item {
+        background-color: inherit;
+        border: 0px solid rgba(0,0,0,.125);
+        min-width: 150px;
+        max-width: 180px;
+    }
 
-#id_ingredients div:nth-child(4n){
-    /* border: 1px red solid; */
-}
+    /* IDt joiden avulla saadaan "add_resepti.html" sivulla raaka-aine sekä määrä formit vierekkäin */
+    .left {
+        float: left;
+        width: 49%;
+        margin-bottom: 0.6em;
+    }
+
+    .right {
+        float: right;
+        width: 49%;
+        margin-bottom: 0.6em;
+    }
 
 /*----------- Add resepti */
 
 
+
 /* jQuery.AutoColumnList-1.2.0 */
 .column{
-    /* justify-content: space-between; */
     max-width: 700px;
     /* border: 1px red solid; */
 }
@@ -83,6 +85,12 @@ body {
     object-fit: cover;
     object-position: 0% 20%;
 }
+    .cat_link, .cat_link:hover, .cat_link:visited{
+        color:peru;
+        font-size: 1.3em;
+        /* font-weight: 500; */
+        text-decoration: none;
+    }
 
 
 
@@ -102,20 +110,11 @@ body {
     }
 
     .card_warp{
-        /* display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: unsafe center; */
-        /* border: 1px green solid; */
-        /* display: inline-block; */
-        /* max-width: auto; */
         display: grid;
-        /* grid-template-columns: 1fr 1fr 1fr; */
         grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
         grid-template-rows: auto;
         column-gap: 10px;
         justify-items: center;
-        /* justify-content:space-between; */
     }
 
     .card{
@@ -125,34 +124,13 @@ body {
 /* --CARD-- */
 
 
-/* IDt joiden avulla saadaan "add_resepti.html" sivulla raaka-aine sekä määrä formit vierekkäin */
-.left {
-    float: left;
-    width: 49%;
-    margin-bottom: 0.6em;
-}
-
-.right {
-    float: right;
-    width: 49%;
-    margin-bottom: 0.6em;
-}
-
-
+/* BUTTONS väärit */
 .btn_bgcolor, .btn_bgcolor:hover, .btn_bgcolor:active, .btn_bgcolor:active:focus{
     background-color:#ca9968 !important;
     border: #ca9968 !important;
     box-shadow: none !important;
     color: white !important;
 }
-
-.cat_link, .cat_link:hover, .cat_link:visited{
-    color:peru;
-    font-size: 1.3em;
-    /* font-weight: 500; */
-    text-decoration: none;
-}
-
 
 
 
