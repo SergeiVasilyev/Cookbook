@@ -22,7 +22,7 @@ def index (request):
     }  
     return render(request, 'resepti_app/index.html', context)
 
-
+# Reseptin lisääminen funktio
 def add_resepti(request):
     IngredientFormSet = modelformset_factory(Ingredient, form=IngredientForm) #modelformset_factory
     Recipe_IngredientFormSet = modelformset_factory(Recipe_Ingredient, form=Recipe_IngredientForm)
@@ -85,10 +85,10 @@ def add_resepti(request):
     } 
     return render(request, 'resepti_app/add_resepti.html', context)
   
-  
 def success(request):
     return HttpResponse('successfully uploaded2')
 
+# Saaminen tietoja tietokannasta ja laittaminen ne reseptin sivulle
 def resepti(request, idx):
     recipe_ingredients = Recipe_Ingredient.objects.filter(recipe_id=idx)
     print(recipe_ingredients)
@@ -99,6 +99,7 @@ def resepti(request, idx):
     }
     return render(request, 'resepti_app/resepti.html', context) 
 
+# Etsiminen funktio
 def search(request):  
     if request.method == 'GET':
         print('search_form: ', request.GET.get('search_form'))
@@ -118,6 +119,7 @@ def search(request):
     }
     return render(request, 'resepti_app/index.html', context)
 
+# Kategorian etsiminen funktio
 def search_category(request, cat_id):
     if request.method == 'GET':
         recipes = Recipe.objects.filter(categoryFK=cat_id)
@@ -136,8 +138,7 @@ def search_category(request, cat_id):
     }
     return render(request, 'resepti_app/index.html', context)
 
-
-
+# Reseptin muokkaaminen funktio
 def edit_resepti(request, id): 
     data_item = Recipe.objects.get(id=id)
     form = RecipeForm(instance=data_item)
@@ -162,7 +163,7 @@ def edit_resepti(request, id):
     }
     return render(request, 'resepti_app/edit_resepti.html', context)
 
-
+# Poistaaminen reseptin sivu
 def poista_resepti (request, idx):
     item = Recipe.objects.get(id=idx)
 
@@ -180,6 +181,7 @@ def poista_resepti (request, idx):
         return redirect ('home')
     return redirect ('home')
 
+# 404 sivu
 def page404(request):
     return render(request, 'resepti_app/404.html')
 
