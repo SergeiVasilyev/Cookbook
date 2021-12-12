@@ -77,22 +77,22 @@ WSGI_APPLICATION = 'resepti_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'HOST': 'localhost',
-         'USER': 'resepti_app',
-         'PASSWORD': 'cookbook',
-         'NAME': 'cookbook',
-     }
- }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+# DATABASES = {
+#      'default': {
+#          'ENGINE': 'django.db.backends.postgresql',
+#          'HOST': 'localhost',
+#          'USER': 'resepti_app',
+#          'PASSWORD': 'cookbook',
+#          'NAME': 'cookbook',
+#      }
+#  }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

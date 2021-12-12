@@ -35,7 +35,7 @@
             var form_name = 'form-' + counter2 + '-ing_name' // Generoidaan uuden nimen ja id
             var form_id = 'id_form-' + counter2 + '-ing_name'
             // Etsitaan edellinen INPUT siksi counter:sta vähennetaan 1, ja laitetaan uuden <name>
-            div_counter = counter2 - 1
+            var div_counter = counter2 - 1
             $('#formset_block div:last #id_form-'+div_counter+'-ing_name').attr("name", form_name) 
             $('#formset_block div:last #id_form-'+div_counter+'-ing_name').attr("id", form_id) // sama laitetaan uusi <id>
 
